@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.standtrain.controllers.MenuConfig"
+prefWidth="500" prefHeight="500">
+
+    <HBox spacing="10">
+        <Button text="Инициализация" onAction="#e16initialize"/>
+        <Button text="Запустить ADC" onAction="#launchADCThread"/>
+        <Button text="Остановить ADC" onAction="#stopADCThread"/>
+    </HBox>
+
+</AnchorPane>

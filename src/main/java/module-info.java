@@ -9,4 +9,7 @@ module com.example.standtrain {
     opens com.example.standtrain.controllers to javafx.fxml;
     exports com.example.standtrain.services;
     opens com.example.standtrain.services to javafx.fxml;
+    exports com.example.standtrain.util;
+    opens com.example.standtrain.util to javafx.fxml;
+
 }

@@ -1,0 +1,38 @@
+/* VBox container style */
+.root {
+    -fx-spacing: 20;
+    -fx-alignment: center;
+}
+
+/* Labels */
+.label {
+    -fx-font-size: 16px;
+}
+
+.label.title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.label.lever {
+    -fx-font-style: italic;
+}
+
+/* Slider styling */
+.slider {
+    -fx-pref-height: 250px;
+}
+
+/* Buttons */
+.button {
+    -fx-pref-width: 150px;
+}
+
+/* Optional inner VBox for lever background */
+.lever-box {
+    -fx-border-color: gray;
+    -fx-border-width: 2;
+    -fx-background-color: linear-gradient(to bottom, #eee, #ccc);
+    -fx-spacing: 10;
+    -fx-alignment: center;
+}
