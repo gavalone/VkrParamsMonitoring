@@ -69,6 +69,7 @@ public class ADCGraphs {
     private void setupChart(LineChart<Number, Number> chart, XYChart.Series<Number, Number> series, NumberAxis xAxis) {
         chart.setAnimated(false);
         chart.setCreateSymbols(false);
+        chart.setLegendVisible(false);
         chart.getData().clear();
         chart.getData().add(series);
 

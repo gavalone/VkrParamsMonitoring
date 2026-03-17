@@ -1,15 +1,37 @@
 package com.example.standtrain.controllers;
 
 import com.example.standtrain.services.*;
+import javafx.application.*;
+import javafx.fxml.*;
+import javafx.scene.control.*;
 
 import static com.example.standtrain.util.Globals.handleE16;
 import static com.example.standtrain.util.Globals.threadE16running;
 import static com.example.standtrain.util.Globals.adcThread;
 import static com.example.standtrain.util.Globals.handleE16initialized;
+import static com.example.standtrain.util.Globals.logs;
 
 
 public class MenuConfig {
+    @FXML TextArea logBox;
     int status;
+
+    public void addTextToScroll(String text) {
+        try {
+            Platform.runLater(() -> {
+                logs.add(text);
+                logBox.appendText(text + "\n");
+            });
+        }
+        catch (Exception e){System.out.println(e.getMessage());}
+    }
+
+    @FXML
+    public void initialize() {
+        for (String log : logs) {
+            logBox.appendText(log + "\n");
+        }
+    }
 
     public void e16initialize(){
         if (!handleE16initialized) {
@@ -17,19 +39,19 @@ public class MenuConfig {
                 handleE16 = Initialization.createHandle();
 
                 status = Initialization.openE16(handleE16);
-                System.out.println("openE16: " + status);
+                addTextToScroll("openE16: " + status);
 
                 status = Initialization.setE16ChannelsCount(handleE16, 4);
-                System.out.println("setE16ChannelsCount: " + status);
+                addTextToScroll("setE16ChannelsCount: " + status);
 
                 status = Initialization.iniE16Channels(handleE16, 4);
-                System.out.println("iniE16Channels: " + status);
+                addTextToScroll("iniE16Channels: " + status);
 
                 status = Initialization.X502_SetAdcFreq(handleE16);
-                System.out.println("X502_SetAdcFreq: " + status);
+                addTextToScroll("X502_SetAdcFreq: " + status);
 
                 status = Initialization.put16Data(handleE16);
-                System.out.println("put16Data: " + status);
+                addTextToScroll("put16Data: " + status);
 
                 //iniVoltageAndRelay();
                 if (status==0)handleE16initialized = true;
@@ -42,22 +64,22 @@ public class MenuConfig {
 
     public void iniVoltageAndRelay(){
         status = DataInput.putV(2.5, handleE16);
-        System.out.println("putV: " + status);
+        addTextToScroll("putV: " + status);
         status = Initialization.iniRelay(handleE16);
-        System.out.println("iniRelay: " + status);
+        addTextToScroll("iniRelay: " + status);
+
     }
 
     public void launchADCThread() throws InterruptedException {
         if (adcThread != null && adcThread.isAlive()) return;
 
-        int st = DataOutput.streamsEnable(handleE16);
-        System.out.println("streamsEnable: " + st);
-        st = DataOutput.streamsStart(handleE16);
-        System.out.println("streamsStart: " + st);
+        status = DataOutput.streamsEnable(handleE16);
+        addTextToScroll("streamsEnable: " + status);
+        status = DataOutput.streamsStart(handleE16);
+        addTextToScroll("streamsStart: " + status);
 
         threadE16running = true;
         adcThread = DataOutput.startSynchroAcquisition(handleE16, 4);
-
     }
 
     public void stopADCThread() {
@@ -71,12 +93,8 @@ public class MenuConfig {
         }
 
         status = DataOutput.streamsStop(handleE16);
-        System.out.println("streamsStop: " + status);
+        addTextToScroll("streamsStop: " + status);
         status = DataOutput.streamsDisable(handleE16);
-        System.out.println("streamsDisable: " + status);
+        addTextToScroll("streamsDisable: " + status);
     }
 }
-
-
-
-

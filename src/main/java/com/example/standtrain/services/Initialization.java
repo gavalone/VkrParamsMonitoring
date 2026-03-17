@@ -11,7 +11,7 @@ public class Initialization {
     }
 
     public static int openE16(Pointer handle){
-        return E502Api.INSTANCE.E16_OpenByIpAddr(handle, createIp(192,168,1,10), 0, 200);
+        return E502Api.INSTANCE.E16_OpenByIpAddr(handle, createIp(Config.ipOctet1, Config.ipOctet2, Config.ipOctet3, Config.ipOctet4), 0, 200);
     }
 
     public static int setE16ChannelsCount(Pointer handle, int count){

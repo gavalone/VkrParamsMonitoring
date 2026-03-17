@@ -7,6 +7,7 @@ import javafx.scene.control.*;
 import static com.example.standtrain.util.Globals.handleE16;
 import static com.example.standtrain.util.Globals.curDirection;
 import static com.example.standtrain.util.Globals.lastVoltage;
+import static com.example.standtrain.util.Globals.logs;
 
 public class TrainMovement {
     @FXML
@@ -37,17 +38,17 @@ public class TrainMovement {
     int status;
     public void changeSpeed(double v){
         status = DataInput.putV(v, handleE16);
-        System.out.println("putV: " + status);
+        logs.add("putV: " + status);
     }
 
     public void changeDirection(){
         if (curDirection){
             status = DataInput.putDI0(0x0001, handleE16);
-            System.out.println("putDI0: " + status);
+            logs.add("putDI0: " + status);
         }
         else {
             status = DataInput.putDI0(0x0000, handleE16);
-            System.out.println("putDI0: " + status);
+            logs.add("putDI0: " + status);
         }
         curDirection = !curDirection;
     }

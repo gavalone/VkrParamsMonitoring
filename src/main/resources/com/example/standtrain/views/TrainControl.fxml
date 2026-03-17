@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -13,7 +9,7 @@
       spacing="20" alignment="CENTER">
 
     <!-- Speed control -->
-    <Label text="Train Speed" styleClass="title"/>
+    <Label text="Train Speed" styleClass="title-label"/>
     <Slider fx:id="speedSlider"
             min="0" max="100" value="0"
             blockIncrement="1"
@@ -22,7 +18,7 @@
             showTickMarks="true"
             showTickLabels="true"
             orientation="VERTICAL"
-            styleClass="slider"/>
+            styleClass="vertical-slider"/>
 
     <Label fx:id="speedLabel" text="Speed: 0"/>
 
@@ -31,6 +27,6 @@
 
     <!-- Lever background VBox -->
     <VBox styleClass="lever-box">
-        <Label text="Lever Control" styleClass="lever"/>
+        <Label text="Lever Control" styleClass="lever-label"/>
     </VBox>
 </VBox>

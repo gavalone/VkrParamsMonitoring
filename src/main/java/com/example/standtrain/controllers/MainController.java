@@ -1,10 +1,8 @@
 package com.example.standtrain.controllers;
 
-import javafx.application.*;
 import javafx.fxml.*;
 import javafx.scene.*;
 import javafx.scene.layout.*;
-import javafx.stage.*;
 
 import java.io.*;
 
