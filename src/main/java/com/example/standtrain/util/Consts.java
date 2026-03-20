@@ -10,5 +10,7 @@ public class Consts {
     public static final int X502_DAC_FLAGS_VOLT = 0x0001;
     public static final int X502_STREAM_ADC = 0x01;
     public static final int E16_ADC_FREQ_DEFAULT = 500000;
+    public static final int E16_ADC_FREQ_MINI = 50000;
+
     public static final int SKIP_ADC_DATA = 10;
 }

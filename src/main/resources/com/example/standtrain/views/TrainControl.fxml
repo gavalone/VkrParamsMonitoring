@@ -3,30 +3,30 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.shape.Rectangle?>
 <VBox xmlns="http://javafx.com/javafx/23.0.1"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.example.standtrain.controllers.TrainMovement"
       spacing="20" alignment="CENTER">
 
     <!-- Speed control -->
-    <Label text="Train Speed" styleClass="title-label"/>
-    <Slider fx:id="speedSlider"
-            min="0" max="100" value="0"
-            blockIncrement="1"
-            majorTickUnit="10"
-            minorTickCount="4"
-            showTickMarks="true"
-            showTickLabels="true"
-            orientation="VERTICAL"
-            styleClass="vertical-slider"/>
+    <Label text="Управление скоростью" styleClass="title-label"/>
+
+    <!-- Lever container -->
+    <StackPane styleClass="lever-box">
+        <!-- Slider -->
+        <Slider fx:id="speedSlider"
+                blockIncrement="1"
+                majorTickUnit="10"
+                minorTickCount="4"
+                showTickMarks="true"
+                showTickLabels="true"
+                orientation="VERTICAL"
+                styleClass="vertical-slider"/>
+    </StackPane>
 
     <Label fx:id="speedLabel" text="Speed: 0"/>
 
     <!-- Direction control -->
-    <Button fx:id="directionButton" text="Change Direction"/>
-
-    <!-- Lever background VBox -->
-    <VBox styleClass="lever-box">
-        <Label text="Lever Control" styleClass="lever-label"/>
-    </VBox>
+    <Button fx:id="directionButton" text="Изменить направление"/>
 </VBox>

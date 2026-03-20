@@ -9,8 +9,7 @@ import com.sun.jna.ptr.*;
 
 
 public interface X502Api extends Library {
-    X502Api INSTANCE = Native.load("C:\\Program Files (x86)\\L-Card\\L502-E502-E16-SDK\\bin\\x64\\x502api.dll", X502Api.class);
-
+    X502Api INSTANCE = Native.load("x502api.dll", X502Api.class);
     int X502_GetLibraryVersion();
     Pointer X502_Create();
     int X502_Close(Pointer hdl);

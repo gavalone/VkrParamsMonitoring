@@ -9,7 +9,7 @@ public class DataInput {
         return X502Api.INSTANCE.X502_AsyncOutDac(handle, Consts.X502_DAC_CH1, v, Consts.X502_DAC_FLAGS_VOLT); //вольты на цап
     }
 
-    public static int putDI0(int value, Pointer handle){
-        return X502Api.INSTANCE.X502_AsyncOutDig(handle, value, 0x0001); //0x0001 means to change just one bit (на движениее, цифровой регистр)
+    public static int putDI0(int value, Pointer handle, int mask){
+        return X502Api.INSTANCE.X502_AsyncOutDig(handle, value, mask); //(на движениее, цифровой регистр)
     }
 }

@@ -26,6 +26,10 @@ public class Initialization {
         return 0;
     }
 
+    public static int iniE16DigReg(Pointer handle){
+        return X502Api.INSTANCE.X502_AsyncOutDig(handle, 1, 0);
+    }
+
     public static int put16Data(Pointer handle){
         return X502Api.INSTANCE.X502_Configure(handle, 0); //flags should be 0 by api reference
     }
@@ -35,7 +39,7 @@ public class Initialization {
     }
 
     public static int X502_SetAdcFreq(Pointer handle){
-        DoubleByReference f_acq = new DoubleByReference(Consts.E16_ADC_FREQ_DEFAULT); // желаемая частота
+        DoubleByReference f_acq = new DoubleByReference(Consts.E16_ADC_FREQ_MINI); // желаемая частота
         int res = X502Api.INSTANCE.X502_SetAdcFreq(handle, f_acq, null);
         return res;
     }

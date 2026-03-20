@@ -8,6 +8,7 @@ import static com.example.standtrain.util.Globals.handleE16;
 import static com.example.standtrain.util.Globals.curDirection;
 import static com.example.standtrain.util.Globals.lastVoltage;
 import static com.example.standtrain.util.Globals.logs;
+import static com.example.standtrain.util.Globals.handleE16initialized;
 
 public class TrainMovement {
     @FXML
@@ -20,13 +21,13 @@ public class TrainMovement {
         // Initialize slider to last saved voltage
         double sliderValue = (lastVoltage - 2.5) / 0.025; // inverse mapping
         speedSlider.setValue(sliderValue);
-        speedLabel.setText(String.format("Voltage: %.2f V", lastVoltage));
+        speedLabel.setText(String.format("Напряжение: %.2f V", lastVoltage));
 
         // Update speed in real-time as slider moves
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             double sliderVal = newVal.doubleValue();
             double voltage = 2.5 + sliderVal * 0.025;        // map to 2.5..5V
-            speedLabel.setText(String.format("Voltage: %.2f V", voltage));
+            speedLabel.setText(String.format("Напряжение: %.2f V", voltage));
             changeSpeed(voltage);
             lastVoltage = voltage;                   // save to globals
         });
@@ -37,19 +38,22 @@ public class TrainMovement {
 
     int status;
     public void changeSpeed(double v){
-        status = DataInput.putV(v, handleE16);
-        logs.add("putV: " + status);
+        if (handleE16initialized) {
+            status = DataInput.putV(v, handleE16);
+            logs.add("putV: " + status);
+        }
     }
 
-    public void changeDirection(){
-        if (curDirection){
-            status = DataInput.putDI0(0x0001, handleE16);
-            logs.add("putDI0: " + status);
+    public void changeDirection() {
+        if (handleE16initialized) {
+            if (curDirection) {
+                status = DataInput.putDI0(1, handleE16, 0);
+                logs.add("putDI0 up: " + status);
+            } else {
+                status = DataInput.putDI0(0, handleE16, 0);
+                logs.add("putDI0 down: " + status);
+            }
+            curDirection = !curDirection;
         }
-        else {
-            status = DataInput.putDI0(0x0000, handleE16);
-            logs.add("putDI0: " + status);
-        }
-        curDirection = !curDirection;
     }
 }

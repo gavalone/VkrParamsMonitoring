@@ -22,11 +22,12 @@ public class AppStart extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStart.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
         Image icon = new Image("lcardlogo.png");
         stage.getIcons().add(icon);
         stage.setTitle("LcardTrain");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
