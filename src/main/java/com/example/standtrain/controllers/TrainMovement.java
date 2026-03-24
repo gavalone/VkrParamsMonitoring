@@ -39,7 +39,7 @@ public class TrainMovement {
     int status;
     public void changeSpeed(double v){
         if (handleE16initialized) {
-            status = DataInput.putV(v, handleE16);
+            status = DataInputE16.putV(v, handleE16);
             logs.add("putV: " + status);
         }
     }
@@ -47,10 +47,10 @@ public class TrainMovement {
     public void changeDirection() {
         if (handleE16initialized) {
             if (curDirection) {
-                status = DataInput.putDI0(1, handleE16, 0);
+                status = DataInputE16.putDI0(1, handleE16, 0);
                 logs.add("putDI0 up: " + status);
             } else {
-                status = DataInput.putDI0(0, handleE16, 0);
+                status = DataInputE16.putDI0(0, handleE16, 0);
                 logs.add("putDI0 down: " + status);
             }
             curDirection = !curDirection;

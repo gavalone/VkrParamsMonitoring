@@ -11,6 +11,11 @@ public class Consts {
     public static final int X502_STREAM_ADC = 0x01;
     public static final int E16_ADC_FREQ_DEFAULT = 500000;
     public static final int E16_ADC_FREQ_MINI = 50000;
-
     public static final int SKIP_ADC_DATA = 10;
+
+    public static final int FPGA_REG_SM_MASK = 0x2000;
+    public static final int FPGA_REG_ADDR_CH0_OUT = FPGA_REG_SM_MASK | 0x0040;
+    public static final int FPGA_REG_ADDR_CH2_OUT = FPGA_REG_SM_MASK | 0x0042;
+    public static final int FPGA_REG_ADDR_CH4_OUT = FPGA_REG_SM_MASK | 0x0044;
+
 }

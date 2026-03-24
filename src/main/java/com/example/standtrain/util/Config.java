@@ -1,8 +1,19 @@
 package com.example.standtrain.util;
 
 public class Config {
-    public static int ipOctet1;
-    public static int ipOctet2;
-    public static int ipOctet3;
-    public static int ipOctet4;
+    public static int ipE16_1;
+    public static int ipE16_2;
+    public static int ipE16_3;
+    public static int ipE16_4;
+
+    public static String LTA_name;
+    public static String LTA_serial;
+    public static byte LTA_slot;
+    public static short LTA_cmdPort;
+
+    public static int ipLTA_1;
+    public static int ipLTA_2;
+    public static int ipLTA_3;
+    public static int ipLTA_4;
+
 }

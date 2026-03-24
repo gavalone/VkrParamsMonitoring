@@ -11,10 +11,7 @@ import javafx.stage.Stage;
 import java.io.*;
 import java.util.*;
 
-import static com.example.standtrain.util.Globals.handleE16;
-import static com.example.standtrain.util.Globals.handleE16initialized;
-import static com.example.standtrain.util.Globals.threadE16running;
-import static com.example.standtrain.util.Globals.adcThread;
+import static com.example.standtrain.util.Globals.*;
 
 
 public class AppStart extends Application {
@@ -43,44 +40,19 @@ public class AppStart extends Application {
             X502Api.INSTANCE.X502_Free(handleE16);
             handleE16initialized = false;
         }
+
+        if (handleLTAinitialized){
+            LTA_Api.INSTANCE.LTA_Close(handleLTACon);
+            LTA27_Api.INSTANCE.LTA27_DeInit(handleLTADevice, 0x00000001);
+            handleLTAinitialized = false;
+        }
+
         super.stop();
     }
 
-    public static void main(String[] args) {
-        loadConfig();
+    public static void main(String[] args) throws InterruptedException {
+        UtilMethods.loadConfig();
         launch();
     }
-
-    public static void loadConfig() {
-        Properties properties = new Properties();
-        File file = new File("config.properties");
-
-        try {
-            if (file.exists()) {
-                // Load existing config
-                FileInputStream fis = new FileInputStream(file);
-                properties.load(fis);
-                fis.close();
-
-                Config.ipOctet1 = Integer.parseInt(properties.getProperty("ipOctet1"));
-                Config.ipOctet2 = Integer.parseInt(properties.getProperty("ipOctet2"));
-                Config.ipOctet3 = Integer.parseInt(properties.getProperty("ipOctet3"));
-                Config.ipOctet4 = Integer.parseInt(properties.getProperty("ipOctet4"));
-            } else {
-                // File doesn't exist, create it with default values
-                properties.setProperty("ipOctet1", String.valueOf(192));
-                properties.setProperty("ipOctet2", String.valueOf(168));
-                properties.setProperty("ipOctet3", String.valueOf(1));
-                properties.setProperty("ipOctet4", String.valueOf(10));
-
-                FileOutputStream fos = new FileOutputStream(file);
-                properties.store(fos, "Configuration");
-                fos.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

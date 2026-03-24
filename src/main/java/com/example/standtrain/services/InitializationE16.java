@@ -5,13 +5,13 @@ import com.example.standtrain.util.*;
 import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 
-public class Initialization {
+public class InitializationE16 {
     public static Pointer createHandle(){
         return X502Api.INSTANCE.X502_Create();
     }
 
     public static int openE16(Pointer handle){
-        return E502Api.INSTANCE.E16_OpenByIpAddr(handle, createIp(Config.ipOctet1, Config.ipOctet2, Config.ipOctet3, Config.ipOctet4), 0, 200);
+        return E502Api.INSTANCE.E16_OpenByIpAddr(handle, UtilMethods.createIp(Config.ipE16_1, Config.ipE16_2, Config.ipE16_3, Config.ipE16_4), 0, 200);
     }
 
     public static int setE16ChannelsCount(Pointer handle, int count){
@@ -43,11 +43,5 @@ public class Initialization {
         int res = X502Api.INSTANCE.X502_SetAdcFreq(handle, f_acq, null);
         return res;
     }
-
-    public static int createIp(int o1, int o2, int o3, int o4) {
-        return (o1 << 24) | (o2 << 16) | (o3 << 8) | o4;
-    }
-
-
 
 }

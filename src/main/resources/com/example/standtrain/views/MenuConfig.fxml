@@ -13,9 +13,10 @@
 
         <!-- Buttons area -->
         <HBox spacing="15" alignment="CENTER">
-            <Button text="Инициализация" onAction="#e16initialize"/>
-            <Button text="Запустить" onAction="#launchADCThread"/>
-            <Button text="Остановить" onAction="#stopADCThread"/>
+            <Button text="Инициализация E16" onAction="#e16initialize"/>
+            <Button text="Инициализация LTA" onAction="#LTAInititialize"/>
+            <Button text="Запустить сбор E16" onAction="#launchADCThread"/>
+            <Button text="Остановить сбор E16" onAction="#stopADCThread"/>
         </HBox>
 
         <!-- Log box -->
