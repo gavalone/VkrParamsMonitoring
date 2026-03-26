@@ -31,12 +31,6 @@
     -fx-background-radius: 6;
 }
 
-
-
-
-
-
-
 .log-box {
     -fx-control-inner-background: #111;
     -fx-text-fill: #0f0;
@@ -112,4 +106,39 @@
 .vertical-slider .tick-label {
     -fx-text-fill: #eee;
     -fx-font-size: 10px;
+}
+
+.default-color0 .chart-series-line {
+    -fx-stroke: #FF3B30;  /* красный */
+    -fx-stroke-width: 2px;
+}
+
+.default-color1 .chart-series-line {
+    -fx-stroke: #007AFF;  /* синий */
+    -fx-stroke-width: 2px;
+}
+
+.default-color2 .chart-series-line {
+    -fx-stroke: #34C759;  /* зелёный */
+    -fx-stroke-width: 2px;
+}
+
+.default-color3 .chart-series-line {
+    -fx-stroke: #FF9500;  /* оранжевый */
+    -fx-stroke-width: 2px;
+}
+
+.default-color4 .chart-series-line {
+    -fx-stroke: #AF52DE;  /* фиолетовый */
+    -fx-stroke-width: 2px;
+}
+
+.default-color5 .chart-series-line {
+    -fx-stroke: #5AC8FA;  /* голубой */
+    -fx-stroke-width: 2px;
+}
+
+.default-color6 .chart-series-line {
+    -fx-stroke: #FFCC00;  /* жёлтый */
+    -fx-stroke-width: 2px;
 }

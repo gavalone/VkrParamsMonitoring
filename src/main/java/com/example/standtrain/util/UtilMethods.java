@@ -7,7 +7,16 @@ public class UtilMethods {
     public static int createIp(int o1, int o2, int o3, int o4) {
         return (o1 << 24) | (o2 << 16) | (o3 << 8) | o4;
     }
-
+    public static byte convertDrToEnum(int drValue) {
+        return switch (drValue) {
+            case 32 -> Consts.LTA27_A27_DR_32;
+            case 64 -> Consts.LTA27_A27_DR_64;
+            case 128 -> Consts.LTA27_A27_DR_128;
+            case 256 -> Consts.LTA27_A27_DR_256;
+            case 512 -> Consts.LTA27_A27_DR_512;
+            default -> throw new IllegalArgumentException("Unsupported decimation rate: " + drValue);
+        };
+    }
     public static void loadConfig() {
         Properties properties = new Properties();
         File file = new File("config.properties");

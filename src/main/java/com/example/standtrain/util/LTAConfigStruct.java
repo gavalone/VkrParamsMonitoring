@@ -6,13 +6,13 @@ import java.util.*;
 
 public class LTAConfigStruct extends Structure {
 
-    public int ch_enable_mask;   // bitmask: bit0=ch0, bit1=ch1, etc.
-    public int reserved1;
-    public int reserved2;
-    public int reserved3;
+    public int[] series = new int[Consts.LTA27_MEZ_QTY];
+    public byte[] enable = new byte[Consts.LTA27_CH_QTY];
+    public int[] filter_dr = new int[Consts.LTA27_CH_QTY];
 
     @Override
     protected List<String> getFieldOrder() {
-        return Arrays.asList("ch_enable_mask", "reserved1", "reserved2", "reserved3");
+        return Arrays.asList("series", "enable", "filter_dr");
     }
 }
+

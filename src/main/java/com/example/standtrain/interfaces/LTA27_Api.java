@@ -12,9 +12,9 @@ public interface LTA27_Api extends Library {
 
     int LTA27_AsyncRead(Pointer dev_hnd, int channel, IntByReference rawData);
 
-    int LTA27_ProcessData(Pointer dev_hnd, int channel, double rawValue, DoubleByReference processedValue, IntByReference unitType);
-
+    int LTA27_ProcessData(Pointer dev_hnd, int ch_num, IntByReference src_data, DoubleByReference dst_data, IntByReference size, int in_flags);
     Pointer LTA27_GetErrorString(int errCode, int lang);
-    int LTA27_SetConfig(Pointer dev_hnd, LTAConfigStruct config, int flags);
+    int LTA27_SetConfig(Pointer dev_hnd, LTAConfigStruct lta27_config_t , int flags);
+
 
 }

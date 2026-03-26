@@ -13,7 +13,7 @@ import static com.example.standtrain.util.Globals.buf4;
 import java.util.*;
 import java.util.concurrent.*;
 
-public class DataOutput {
+public class DataOutputE16 {
     public static double[] asyncGetAdcFrame(Pointer handle, int flags, int timeoutMs, int lchCount) {
         long bytes = (long) lchCount * Native.getNativeSize(Double.TYPE); // 8 * count, allocate native buffer for lchCount doubles
         Memory buf = new Memory(bytes);
@@ -44,31 +44,25 @@ public class DataOutput {
     }
 
 
-
-    //private static final int READ_BLOCK_SIZE = 0xC6000;
-    private static final int READ_BLOCK_SIZE = 500;
-    private static final int READ_TIMEOUT = 100;  // ms
-
-
     public static Thread startSynchroAcquisition(Pointer handle, int lchCount) {
-        long recvBytes = (long) READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
+        long recvBytes = (long) Consts.READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
         final Memory recvBuf = new Memory(recvBytes);
 
-        long adcBytes = (long) READ_BLOCK_SIZE * Native.getNativeSize(Double.TYPE);
+        long adcBytes = (long) Consts.READ_BLOCK_SIZE * Native.getNativeSize(Double.TYPE);
         final Memory adcBuf = new Memory(adcBytes); // double[]
-        long dinBytes = (long) READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
+        long dinBytes = (long) Consts.READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
         final Memory dinBuf = new Memory(dinBytes); // uint32_t[]
 
-        final IntByReference adcSizeRef = new IntByReference(READ_BLOCK_SIZE);
-        final IntByReference dinSizeRef = new IntByReference(READ_BLOCK_SIZE);
+        final IntByReference adcSizeRef = new IntByReference(Consts.READ_BLOCK_SIZE);
+        final IntByReference dinSizeRef = new IntByReference(Consts.READ_BLOCK_SIZE);
         final IntByReference firstLchRef = new IntByReference();
 
         //everything inside lambda launches at t.start()
         Thread t = new Thread(() -> {
             try {
                 while (threadE16running) {
-                    Thread.sleep(100);
-                    int received = X502Api.INSTANCE.X502_Recv(handle, recvBuf, READ_BLOCK_SIZE, READ_TIMEOUT);
+                    //Thread.sleep(100);
+                    int received = X502Api.INSTANCE.X502_Recv(handle, recvBuf, Consts.READ_BLOCK_SIZE, Consts.READ_TIMEOUT);
                     if (received < 0) {
                         int err = received;
                         System.err.println("Error at data receive : " + err);
@@ -79,8 +73,8 @@ public class DataOutput {
                     }
 
 
-                    adcSizeRef.setValue(READ_BLOCK_SIZE);
-                    dinSizeRef.setValue(READ_BLOCK_SIZE);
+                    adcSizeRef.setValue(Consts.READ_BLOCK_SIZE);
+                    dinSizeRef.setValue(Consts.READ_BLOCK_SIZE);
 
                     int err = X502Api.INSTANCE.X502_ProcessData(handle,
                             recvBuf,
@@ -101,7 +95,7 @@ public class DataOutput {
                     // In order to find at which channel we are currently starting
                     if (X502Api.INSTANCE.X502_GetNextExpectedLchNum(handle, firstLchRef) == 0) {
                     } else {
-                        firstLchRef.setValue(1); // fallback
+                        break;
                     }
                     int firstLch = firstLchRef.getValue();
 

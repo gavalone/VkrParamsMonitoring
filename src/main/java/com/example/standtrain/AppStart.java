@@ -20,9 +20,9 @@ public class AppStart extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStart.class.getResource("Main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
-        Image icon = new Image("lcardlogo.png");
+        Image icon = new Image("logo1.PNG");
         stage.getIcons().add(icon);
-        stage.setTitle("LcardTrain");
+        stage.setTitle("Mini ACTest");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
@@ -42,8 +42,8 @@ public class AppStart extends Application {
         }
 
         if (handleLTAinitialized){
+            LTA27_Api.INSTANCE.LTA27_DeInit(handleLTADevice, 0);
             LTA_Api.INSTANCE.LTA_Close(handleLTACon);
-            LTA27_Api.INSTANCE.LTA27_DeInit(handleLTADevice, 0x00000001);
             handleLTAinitialized = false;
         }
 

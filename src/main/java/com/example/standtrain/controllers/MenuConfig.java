@@ -1,7 +1,7 @@
 package com.example.standtrain.controllers;
 
 import com.example.standtrain.services.*;
-import javafx.application.*;
+import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 
@@ -11,6 +11,8 @@ import static com.example.standtrain.util.Globals.adcThread;
 import static com.example.standtrain.util.Globals.handleE16initialized;
 import static com.example.standtrain.util.Globals.logs;
 import static com.example.standtrain.util.Globals.handleLTAinitialized;
+import static com.example.standtrain.util.Globals.ltaThread;
+import static com.example.standtrain.util.Globals.threadLTArunning;
 
 public class MenuConfig {
     @FXML TextArea logBox;
@@ -86,6 +88,28 @@ public class MenuConfig {
         }
     }
 
+    public void launchLTAThread(){
+        if (handleLTAinitialized) {
+            addTextToScroll("LTA thread started");
+            if (ltaThread != null && ltaThread.isAlive()) return;
+            threadLTArunning = true;
+            ltaThread = DataOutputLTA.startAsynchroAcquisitionLTA();
+        }
+    }
+
+    public void closeLTAThread(){
+        if (handleLTAinitialized) {
+            if (ltaThread == null) return;
+            threadLTArunning = false;
+            try {
+                ltaThread.join(3000);
+                addTextToScroll("LTA thread stopped");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void iniVoltageAndRelay(){
         status = DataInputE16.putV(2.5, handleE16);
         addTextToScroll("putV: " + status);
@@ -111,7 +135,7 @@ public class MenuConfig {
 
         threadE16running = false;
         try {
-            adcThread.join(); //waits until thread shutdown caused by threadE16running = false
+            adcThread.join(3000); //waits until thread shutdown caused by threadE16running = false
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -122,3 +146,7 @@ public class MenuConfig {
         addTextToScroll("streamsDisable: " + status);
     }
 }
+
+
+
+

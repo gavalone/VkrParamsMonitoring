@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+
+<VBox fx:id="graphVBox"
+      xmlns="http://javafx.com/javafx/23.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.example.standtrain.controllers.FourGraphsController"
+      alignment="CENTER">
+
+    <Label text="Все графики" styleClass="title-label"/>
+
+    <GridPane hgap="8" vgap="8">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="50"/>
+            <ColumnConstraints percentWidth="50"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints percentHeight="50"/>
+            <RowConstraints percentHeight="50"/>
+        </rowConstraints>
+
+        <LineChart fx:id="chart1" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="default-color0">
+            <xAxis>
+                <NumberAxis fx:id="xAxis1" label="samples"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Voltage (V)"/>
+            </yAxis>
+        </LineChart>
+        <LineChart fx:id="chart2" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="default-color3">
+            <xAxis>
+                <NumberAxis fx:id="xAxis2" label="samples"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Voltage (V)"/>
+            </yAxis>
+        </LineChart>
+        <LineChart fx:id="chart3" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="default-color4">
+            <xAxis>
+                <NumberAxis fx:id="xAxis3" label="samples"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Voltage (V)"/>
+            </yAxis>
+        </LineChart>
+        <LineChart fx:id="chart4" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="default-color5">
+            <xAxis>
+                <NumberAxis fx:id="xAxis4" label="samples"/>
+            </xAxis>
+            <yAxis>
+                <NumberAxis label="Voltage (V)"/>
+            </yAxis>
+        </LineChart>
+    </GridPane>
+
+</VBox>

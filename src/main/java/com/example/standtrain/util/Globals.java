@@ -17,13 +17,20 @@ public class Globals {
     public static boolean curDirection = false;
     public static boolean threadE16running = false;
     public static Thread adcThread = null;
+    public static Thread ltaThread = null;
+    public static boolean threadLTArunning = false;
 
     public static double lastVoltage = 2.5;
 
-    public static final int BUFFER_CAPACITY = 1000;
-    public static final ArrayBlockingQueue<Double> buf1 = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
-    public static final ArrayBlockingQueue<Double> buf2 = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
-    public static final ArrayBlockingQueue<Double> buf3 = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
-    public static final ArrayBlockingQueue<Double> buf4 = new ArrayBlockingQueue<>(BUFFER_CAPACITY);
+    public static final ArrayBlockingQueue<Double> buf1 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
+    public static final ArrayBlockingQueue<Double> buf2 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
+    public static final ArrayBlockingQueue<Double> buf3 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
+    public static final ArrayBlockingQueue<Double> buf4 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
+
+
+    public static final int LTA_BUFFERS_CAPACITY = 100;
+    public static final ArrayBlockingQueue<Double> voltageBuf = new ArrayBlockingQueue<>(LTA_BUFFERS_CAPACITY);
+    public static final ArrayBlockingQueue<Double> amperageBuf = new ArrayBlockingQueue<>(LTA_BUFFERS_CAPACITY);
+    public static final ArrayBlockingQueue<Double> resistanceBuf = new ArrayBlockingQueue<>(LTA_BUFFERS_CAPACITY);
 
 }

@@ -1,52 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox  fx:id="graphVBox"
-       xmlns="http://javafx.com/javafx/23.0.1"
-       xmlns:fx="http://javafx.com/fxml/1"
-       fx:controller="com.example.standtrain.controllers.ADCGraphs"
-       spacing="8">
+<VBox fx:id="graphVBox" alignment="TOP_CENTER" prefHeight="600" prefWidth="800" spacing="10" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.standtrain.controllers.ADCGraphs">
 
     <padding>
-        <Insets top="8" right="8" bottom="8" left="8"/>
+        <Insets bottom="8" left="8" right="8" top="8" />
     </padding>
 
-    <GridPane hgap="8" vgap="8">
-        <columnConstraints>
-            <ColumnConstraints percentWidth="50"/>
-            <ColumnConstraints percentWidth="50"/>
-        </columnConstraints>
+    <ComboBox fx:id="comboBox" onAction="#changeGraph" prefWidth="250" promptText="Выберите график">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Главный график" />
+                <String fx:value="Вывод 1" />
+                <String fx:value="Вывод 2" />
+                <String fx:value="Вывод 3" />
+                <String fx:value="Вывод 4" />
+                <String fx:value="Вывод четырех графиков" />
+            </FXCollections>
+        </items>
+    </ComboBox>
 
-        <rowConstraints>
-            <RowConstraints percentHeight="50"/>
-            <RowConstraints percentHeight="50"/>
-        </rowConstraints>
-
-        <!-- Top-left -->
-        <LineChart fx:id="chart1" GridPane.columnIndex="0" GridPane.rowIndex="0" prefHeight="300" prefWidth="400">
-            <xAxis><NumberAxis fx:id="xAxis1" label="Samples"/></xAxis>
-            <yAxis><NumberAxis fx:id="yAxis1" label="Voltage (V)"/></yAxis>
-        </LineChart>
-
-        <!-- Top-right -->
-        <LineChart fx:id="chart2" GridPane.columnIndex="1" GridPane.rowIndex="0" prefHeight="300" prefWidth="400">
-            <xAxis><NumberAxis fx:id="xAxis2" label="Samples"/></xAxis>
-            <yAxis><NumberAxis fx:id="yAxis2" label="Voltage (V)"/></yAxis>
-        </LineChart>
-
-        <!-- Bottom-left -->
-        <LineChart fx:id="chart3" GridPane.columnIndex="0" GridPane.rowIndex="1" prefHeight="300" prefWidth="400">
-            <xAxis><NumberAxis fx:id="xAxis3" label="Samples"/></xAxis>
-            <yAxis><NumberAxis fx:id="yAxis3" label="Voltage (V)"/></yAxis>
-        </LineChart>
-
-        <!-- Bottom-right -->
-        <LineChart fx:id="chart4" GridPane.columnIndex="1" GridPane.rowIndex="1" prefHeight="300" prefWidth="400">
-            <xAxis><NumberAxis fx:id="xAxis4" label="Samples"/></xAxis>
-            <yAxis><NumberAxis fx:id="yAxis4" label="Voltage (V)"/></yAxis>
-        </LineChart>
-    </GridPane>
+    <AnchorPane fx:id="graphContainer" prefHeight="500" prefWidth="800" />
 </VBox>

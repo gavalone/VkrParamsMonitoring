@@ -31,7 +31,7 @@ public class InitializationLTA {
 
     public static int initLTA(){
         PointerByReference devHnd = new PointerByReference();
-        int status = LTA27_Api.INSTANCE.LTA27_Init(devHnd, handleLTACon, 0x00000001, null);
+        int status = LTA27_Api.INSTANCE.LTA27_Init(devHnd, handleLTACon, 0, null);
         if (status == 0) {
             handleLTADevice = devHnd.getValue();
         }
@@ -41,23 +41,22 @@ public class InitializationLTA {
 
     public static int enableChannels() {
         LTAConfigStruct config = new LTAConfigStruct();
-        config.ch_enable_mask = (1 << 1) | (1 << 3) | (1 << 5);
+        for (int i = 0; i < Consts.LTA27_MEZ_QTY; i++) {
+            config.series[i] = Consts.LTA27_MEZ_SER_A;
+        }
+
+        for (int i = 0; i < Consts.LTA27_CH_QTY; i++){
+            config.filter_dr[i] = UtilMethods.convertDrToEnum(32);
+        }
+
+        for (int i = 0; i < Consts.LTA27_CH_QTY; i++){
+            config.enable[i] = 0;
+        }
+        config.enable[0] = 1;
+        config.enable[2] = 1;
+        config.enable[4] = 1;
+
         return LTA27_Api.INSTANCE.LTA27_SetConfig(handleLTADevice, config, 0);
     }
-
-
-
-//    public static final int FPGA_REG_SM_MASK = 0x2000;
-//    public static final int FPGA_REG_SM_ADDR_CLKEN = FPGA_REG_SM_MASK | 0x0002; // 0x0202
-//    public static final int FPGA_REG_SM_ADDR_PWR   = FPGA_REG_SM_MASK | 0x0003; // 0x0203
-//    public static final int FPGA_CLK_EN_FCLK_ALL_ON_MASK = 0x0000FF00;
-//    public static final int FPGA_PWM_SHUNT_ON_MASK = 0x03;
-
-//    public static void enableFpgaModules() {
-//        int rez1 = LTA_Api.INSTANCE.LTA_WriteReg(handleLTACon, FPGA_REG_SM_ADDR_CLKEN, FPGA_CLK_EN_FCLK_ALL_ON_MASK);
-//        int rez2 = LTA_Api.INSTANCE.LTA_WriteReg(handleLTACon, FPGA_REG_SM_ADDR_PWR, FPGA_PWM_SHUNT_ON_MASK);
-//        System.out.println(rez1);
-//        System.out.println(rez2);
-//    }
 
 }

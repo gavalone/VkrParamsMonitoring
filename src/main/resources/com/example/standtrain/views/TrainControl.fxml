@@ -1,32 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.shape.Rectangle?>
-<VBox xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.standtrain.controllers.TrainMovement"
-      spacing="20" alignment="CENTER">
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.standtrain.controllers.TrainMovement">
 
-    <!-- Speed control -->
-    <Label text="Управление скоростью" styleClass="title-label"/>
-
-    <!-- Lever container -->
+    <Label styleClass="title-label" text="Управление скоростью" />
     <StackPane styleClass="lever-box">
-        <!-- Slider -->
-        <Slider fx:id="speedSlider"
-                blockIncrement="1"
-                majorTickUnit="10"
-                minorTickCount="4"
-                showTickMarks="true"
-                showTickLabels="true"
-                orientation="VERTICAL"
-                styleClass="vertical-slider"/>
+
+        <Slider fx:id="speedSlider" blockIncrement="1" majorTickUnit="10" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" styleClass="vertical-slider" />
     </StackPane>
+    <Label fx:id="speedLabel" text="Speed: 0" />
+    <Button fx:id="directionButton" text="Изменить направление" />
 
-    <Label fx:id="speedLabel" text="Speed: 0"/>
-
-    <!-- Direction control -->
-    <Button fx:id="directionButton" text="Изменить направление"/>
 </VBox>
