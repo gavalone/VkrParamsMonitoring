@@ -23,9 +23,7 @@ public class Consts {
     public static final int LTA27_A27_DR_512 = (byte)0xFF;
     public static final int LTA27_PD_FLAGS_VALUE = 0x02;
     public static final int LTA27_PD_FLAGS_CALIBR = 0x01;
-
     public static final int E16_ADC_FREQ_DEFAULT = 500000;
-
 
     public static final int E16_BUFFER_CAPACITY = 5000;
     public static final int E16_ADC_FREQ_MINI = 50000;
@@ -34,7 +32,12 @@ public class Consts {
     public static final int MAX_POINTS = 1000;
     public static final int REFRESH_MS = 100;
     public static final int SKIP_ADC_DATA = 100;
+    public static final double chartBond = 0.0001;
 
-    float seconds = (1f / ((float)E16_ADC_FREQ_MINI / (float)SKIP_ADC_DATA) / (float)MAX_POINTS); //length of chart in seconds
+    public static final int chNum = 4;
+    public static final float msPerPoint = ((1f / ((float)E16_ADC_FREQ_MINI / (float)SKIP_ADC_DATA) / (float)MAX_POINTS) * 1000f) * chNum;
 
+
+
+    public static final int LTAChartsSize = 25;
 }

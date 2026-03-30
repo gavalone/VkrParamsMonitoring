@@ -3,20 +3,25 @@ package com.example.standtrain.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.application.Platform;
 
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
+import javafx.scene.control.Label;
 
 
 public class SingleGraphController extends BaseGraphController {
 
     @FXML private LineChart<Number, Number> chart;
     @FXML private NumberAxis xAxis;
+    @FXML private Label titleLabel;
 
     private ArrayBlockingQueue<Double> dataQueue;
 
-    public void setDataQueue(ArrayBlockingQueue<Double> queue) {
+    public void setDataQueue(ArrayBlockingQueue<Double> queue, int channelNum) {
         dataQueue = queue;
+        titleLabel.setText("Канал " + channelNum);
+        setLineColor(channelNum);
     }
 
     protected List<LineChart<Number, Number>> getCharts() {
@@ -29,5 +34,26 @@ public class SingleGraphController extends BaseGraphController {
 
     protected List<ArrayBlockingQueue<Double>> getDataQueues() {
         return List.of(dataQueue);
+    }
+
+    private void setLineColor(int channelNum) {
+        switch (channelNum) {
+            case 1 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #FF8C00");
+            case 2 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8B0000");
+            case 3 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8FBC8F");
+            case 4 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #2F4F4F");
+        }
+
+//        Platform.runLater(() -> {
+//            if (!chart.getData().isEmpty() && chart.getData().get(0).getNode() != null) {
+//                chart.getData().get(0).getNode().setStyle("-fx-stroke: " + color + ";");
+//            } else {
+//                Platform.runLater(() -> {
+//                    if (!chart.getData().isEmpty() && chart.getData().get(0).getNode() != null) {
+//                        chart.getData().get(0).getNode().setStyle("-fx-stroke: " + color + ";");
+//                    }
+//                });
+//            }
+//        });
     }
 }

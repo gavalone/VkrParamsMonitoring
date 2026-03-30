@@ -3,15 +3,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
 
-<VBox fx:id="graphVBox" xmlns="http://javafx.com/javafx/23.0.1"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.example.standtrain.controllers.SingleGraphController"
-      alignment="CENTER">
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.standtrain.controllers.CombinedGraphController"
+      alignment="CENTER" spacing="10">
 
-    <Label text="Главный график" styleClass="title-label"/>
+    <VBox fx:id="graphVBox" alignment="CENTER" spacing="10">
+        <Label text="Основной график" styleClass="title-label"/>
+        <LineChart fx:id="chart" prefWidth="1800" prefHeight="600">
+            <xAxis><NumberAxis fx:id="xAxis" label="Time (sec)"/></xAxis>
+            <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
+        </LineChart>
+    </VBox>
 
-    <LineChart fx:id="chart" prefWidth="800" prefHeight="500" styleClass="default-color4">
-        <xAxis><NumberAxis fx:id="xAxis" label="samples"/></xAxis>
-        <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
-    </LineChart>
-</VBox>
+    <VBox alignment="CENTER_LEFT" spacing="8" style="-fx-padding: 10;">
+        <Label text="•  1 канал" style="-fx-text-fill: #FF8C00; -fx-font-weight: bold; -fx-font-size: 14;"/>
+        <Label text="•  2 канал" style="-fx-text-fill: #8B0000; -fx-font-weight: bold; -fx-font-size: 14;"/>
+        <Label text="•  3 канал" style="-fx-text-fill: #8FBC8F; -fx-font-weight: bold; -fx-font-size: 14;"/>
+        <Label text="•  4 канал" style="-fx-text-fill: #2F4F4F; -fx-font-weight: bold; -fx-font-size: 14;"/>
+    </VBox>
+
+</HBox>

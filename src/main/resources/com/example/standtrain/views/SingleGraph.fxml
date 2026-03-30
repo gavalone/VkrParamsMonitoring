@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+
+<VBox fx:id="graphVBox" xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.standtrain.controllers.SingleGraphController"
+      alignment="CENTER" spacing="10">
+
+    <Label fx:id="titleLabel" styleClass="title-label"/>
+    <LineChart fx:id="chart" prefWidth="800" prefHeight="500">
+        <xAxis><NumberAxis fx:id="xAxis" label="Time (sec)"/></xAxis>
+        <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
+    </LineChart>
+</VBox>

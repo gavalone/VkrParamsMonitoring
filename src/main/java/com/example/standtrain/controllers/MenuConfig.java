@@ -1,6 +1,7 @@
 package com.example.standtrain.controllers;
 
 import com.example.standtrain.services.*;
+import com.example.standtrain.util.*;
 import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.scene.control.*;
@@ -127,7 +128,7 @@ public class MenuConfig {
         addTextToScroll("streamsStart: " + status);
 
         threadE16running = true;
-        adcThread = DataOutputE16.startSynchroAcquisition(handleE16, 4);
+        adcThread = DataOutputE16.startSynchroAcquisition(handleE16, Consts.chNum);
     }
 
     public void stopADCThread() {

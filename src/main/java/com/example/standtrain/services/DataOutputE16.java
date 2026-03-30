@@ -56,12 +56,16 @@ public class DataOutputE16 {
         final IntByReference adcSizeRef = new IntByReference(Consts.READ_BLOCK_SIZE);
         final IntByReference dinSizeRef = new IntByReference(Consts.READ_BLOCK_SIZE);
         final IntByReference firstLchRef = new IntByReference();
+        final int[] sampleCounter = new int[lchCount];
 
         //everything inside lambda launches at t.start()
         Thread t = new Thread(() -> {
             try {
+                for (int i = 0; i < lchCount; i++) {
+                    sampleCounter[i] = 0;
+                }
+
                 while (threadE16running) {
-                    //Thread.sleep(100);
                     int received = X502Api.INSTANCE.X502_Recv(handle, recvBuf, Consts.READ_BLOCK_SIZE, Consts.READ_TIMEOUT);
                     if (received < 0) {
                         int err = received;
@@ -92,7 +96,6 @@ public class DataOutputE16 {
 
                     int adcCount = adcSizeRef.getValue();
 
-                    // In order to find at which channel we are currently starting
                     if (X502Api.INSTANCE.X502_GetNextExpectedLchNum(handle, firstLchRef) == 0) {
                     } else {
                         break;
@@ -100,14 +103,14 @@ public class DataOutputE16 {
                     int firstLch = firstLchRef.getValue();
 
 
-                    // Copy data from memory to java array (easier to work with but resource intensive)
+                    //copy data from memory to java array (easier to work with but resource intensive)
                     double[] adc = new double[adcCount];
                     for (int i = 0; i < adcCount; i++) {
                         adc[i] = adcBuf.getDouble((long) i * Native.getNativeSize(Double.TYPE));
                     }
 
 
-                    //This block for division of data per channel from singular array
+                    //block for division of data per channel from singular array
                     int capacityPerChannel = (adcCount + lchCount - 1) / lchCount;
                     double[][] channels = new double[lchCount][capacityPerChannel];
                     int[] idx = new int[lchCount];
@@ -116,28 +119,27 @@ public class DataOutputE16 {
                         channels[chZeroBased][idx[chZeroBased]++] = adc[i];
                     }
 
-                     //Cut to have actual data per channels (some math division problems cause it)
+                     //cut to have actual data per channels (some math division problems cause it)
                     double[][] finalChannels = new double[lchCount][];
                     for (int ch = 0; ch < lchCount; ch++) {
                         finalChannels[ch] = Arrays.copyOf(channels[ch], idx[ch]);
                     }
 
 
-                    int sampleCounter = 0;
-                    for (int ch = 0; ch < lchCount && ch < 4; ch++) {
-                        for (int j = 0; j < idx[ch]; j++) {
-                            if ((sampleCounter++ % Consts.SKIP_ADC_DATA) != 0) continue; // keep only every SKIP_ADC_DATA-th
 
-                            ArrayBlockingQueue<Double> target;
-                            switch (ch) {
-                                case 0 -> target = buf1;
-                                case 1 -> target = buf2;
-                                case 2 -> target = buf3;
-                                case 3 -> target = buf4;
-                                default -> target = null;
-                            }
+                    for (int ch = 0; ch < lchCount && ch < 4; ch++) {
+                        ArrayBlockingQueue<Double> target;
+                        switch (ch) {
+                            case 0 -> target = buf1;
+                            case 1 -> target = buf2;
+                            case 2 -> target = buf3;
+                            case 3 -> target = buf4;
+                            default -> target = null;
+                        }
+
+                        for (int j = 0; j < idx[ch]; j++) {
+                            if ((sampleCounter[ch]++ % Consts.SKIP_ADC_DATA) != 0) continue;
                             if (!target.offer(channels[ch][j])) {
-                                // overwrite oldest if full
                                 target.poll();
                                 target.offer(channels[ch][j]);
                             }
@@ -151,7 +153,7 @@ public class DataOutputE16 {
         });
         t.setDaemon(true); //background-only thread
         t.start(); //start the thread
-        return t; //return object in order to call Thread.isAlive() method
+        return t;
     }
 
 

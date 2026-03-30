@@ -42,7 +42,7 @@ public class UtilMethods {
                 Config.ipLTA_4 = Integer.parseInt(properties.getProperty("ipLTA_4"));
 
             } else {
-                // File doesn't exist, create it with default values
+                //file doesn't exist, create it with default values
                 properties.setProperty("ipE16_1", String.valueOf(192));
                 properties.setProperty("ipE16_2", String.valueOf(168));
                 properties.setProperty("ipE16_3", String.valueOf(1));
@@ -64,4 +64,38 @@ public class UtilMethods {
             e.printStackTrace();
         }
     }
+
+
+    final static double[] tempList = new double[]{
+            -200,-190,-180,-170,-160,-150,-140,-130,-120,-110,-100,-90,-80,-70,-60,-50,-40,-30,-20,-10,0,
+            10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200
+    };
+
+    final static double[] resistanceList = new double[]{
+            6.085, 8.14, 10.29, 12.57, 14.84, 17.105, 19.355, 21.595, 23.83, 26.05,
+            28.265, 30.505, 32.695, 34.875, 37.055, 39.225, 41.39, 43.55, 45.705, 47.855,
+            50.0, 52.14, 54.28, 56.415, 58.555, 60.695, 62.835, 64.97, 67.11, 69.25,
+            71.39, 73.525, 75.665, 77.805, 79.945, 82.08, 84.22, 86.36, 88.5, 90.635, 92.775
+    };
+
+    public static double resistanceToTemperature(double resistance) {
+        if (resistance <= resistanceList[0]) {
+            return tempList[0];
+        }
+        if (resistance >= resistanceList[resistanceList.length - 1]) {
+            return tempList[tempList.length - 1];
+        }
+
+        for (int i = 0; i < resistanceList.length - 1; i++) {
+            if (resistance >= resistanceList[i] && resistance <= resistanceList[i + 1]) {
+                double t1 = tempList[i];
+                double t2 = tempList[i + 1];
+                double r1 = resistanceList[i];
+                double r2 = resistanceList[i + 1];
+                return t1 + (resistance - r1) * (t2 - t1) / (r2 - r1);
+            }
+        }
+        return 0;
+    }
+
 }

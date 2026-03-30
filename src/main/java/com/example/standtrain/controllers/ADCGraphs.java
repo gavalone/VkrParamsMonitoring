@@ -23,25 +23,25 @@ public class ADCGraphs {
     @FXML
     public void initialize() {
         comboBox.setItems(FXCollections.observableArrayList(
-                "Главный график",
-                "Вывод 1",
-                "Вывод 2",
-                "Вывод 3",
-                "Вывод 4",
-                "Вывод четырех графиков"
+                "Вывод графиков с 4-ех каналов",
+                "Канал 1",
+                "Канал 2",
+                "Канал 3",
+                "Канал 4",
+                "Общий график"
         ));
 
-        loadGraph("/com/example/standtrain/views/GraphMain.fxml", buf1);
+        loadGraph("/com/example/standtrain/views/AllGraphs.fxml", null, 0);
     }
 
-    private void loadGraph(String fxmlPath, ArrayBlockingQueue<Double> buffer) {
+    private void loadGraph(String fxmlPath, ArrayBlockingQueue<Double> buffer, int channelNum) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent view = loader.load();
 
             Object controller = loader.getController();
             if (controller instanceof SingleGraphController singleController) {
-                singleController.setDataQueue(buffer);
+                singleController.setDataQueue(buffer, channelNum);
             }
 
             graphContainer.getChildren().setAll(view);
@@ -60,18 +60,18 @@ public class ADCGraphs {
         if (selected == null) return;
 
         switch (selected) {
-            case "Главный график" ->
-                    loadGraph("/com/example/standtrain/views/GraphMain.fxml", buf1);
-            case "Вывод 1" ->
-                    loadGraph("/com/example/standtrain/views/Graph1.fxml", buf1);
-            case "Вывод 2" ->
-                    loadGraph("/com/example/standtrain/views/Graph2.fxml", buf2);
-            case "Вывод 3" ->
-                    loadGraph("/com/example/standtrain/views/Graph3.fxml", buf3);
-            case "Вывод 4" ->
-                    loadGraph("/com/example/standtrain/views/Graph4.fxml", buf4);
-            case "Вывод четырех графиков" ->
-                    loadGraph("/com/example/standtrain/views/AllGraphs.fxml", null);
+            case "Общий график" ->
+                    loadGraph("/com/example/standtrain/views/GraphMain.fxml", null, -1);
+            case "Канал 1" ->
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf1, 1);
+            case "Канал 2" ->
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf2, 2);
+            case "Канал 3" ->
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf3, 3);
+            case "Канал 4" ->
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf4, 4);
+            case "Вывод графиков с 4-ех каналов" ->
+                    loadGraph("/com/example/standtrain/views/AllGraphs.fxml", null, -1);
         }
     }
 }

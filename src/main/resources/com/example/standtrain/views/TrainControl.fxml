@@ -1,19 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.standtrain.controllers.TrainMovement">
+<BorderPane xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.example.standtrain.controllers.TrainMovement">
 
-    <Label styleClass="title-label" text="Управление скоростью" />
-    <StackPane styleClass="lever-box">
+    <center>
+        <VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
 
-        <Slider fx:id="speedSlider" blockIncrement="1" majorTickUnit="10" minorTickCount="4" orientation="VERTICAL" showTickLabels="true" showTickMarks="true" styleClass="vertical-slider" />
-    </StackPane>
-    <Label fx:id="speedLabel" text="Speed: 0" />
-    <Button fx:id="directionButton" text="Изменить направление" />
+            <HBox alignment="CENTER" spacing="10">
+                <Label text="36.7" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill:#515b60" />
+                <ImageView fitWidth="70" preserveRatio="true" pickOnBounds="true">
+                    <image>
+                        <Image url="@/thermometer.png"/>
+                    </image>
+                </ImageView>
+            </HBox>
 
-</VBox>
+            <HBox fx:id="chartsHBox" alignment="CENTER" spacing="30">
+                <BarChart fx:id="barChart1" prefWidth="270" prefHeight="570" animated="true">
+                    <xAxis><CategoryAxis /></xAxis>
+                    <yAxis><NumberAxis /></yAxis>
+                </BarChart>
+
+                <BarChart fx:id="barChart2" prefWidth="270" prefHeight="570" animated="true">
+                    <xAxis><CategoryAxis /></xAxis>
+                    <yAxis><NumberAxis /></yAxis>
+                </BarChart>
+
+                <BarChart fx:id="barChart3" prefWidth="270" prefHeight="570" animated="true">
+                    <xAxis><CategoryAxis /></xAxis>
+                    <yAxis><NumberAxis /></yAxis>
+                </BarChart>
+            </HBox>
+
+        </VBox>
+    </center>
+
+    <right>
+        <StackPane alignment="CENTER_LEFT" style="-fx-padding: 0 250 0 0;">
+            <VBox alignment="CENTER" spacing="28" style="-fx-padding: 24;">
+                <Label styleClass="title-label" text="Управление скоростью" />
+                <StackPane styleClass="lever-box">
+                    <Slider fx:id="speedSlider"
+                            blockIncrement="1"
+                            majorTickUnit="10"
+                            minorTickCount="4"
+                            orientation="VERTICAL"
+                            showTickLabels="true"
+                            showTickMarks="true"
+                            styleClass="vertical-slider"
+                            prefHeight="520" />
+                </StackPane>
+                <Label fx:id="speedLabel" text="Напряжение: 0.00 V" />
+                <Button fx:id="directionButton" text="Изменить направление" />
+            </VBox>
+        </StackPane>
+    </right>
+</BorderPane>

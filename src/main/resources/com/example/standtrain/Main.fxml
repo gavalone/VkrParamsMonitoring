@@ -6,31 +6,38 @@
 <?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Region?>
 <BorderPane fx:id="root" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.standtrain.controllers.MainController">
     <top>
-        <VBox>
-            <ToolBar>
+        <VBox spacing="5">
+            <ToolBar styleClass="tool-bar">
                 <Button text="Конфигурация" onAction="#showMenuConfig"/>
                 <Button text="Графики" onAction="#showADCGraphs"/>
                 <Button text="Управление поездом" onAction="#showTrainControl"/>
             </ToolBar>
 
-            <AnchorPane prefHeight="200">
-                <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
-                <image>
-                    <Image url="@../../../logo1.PNG"/>
-                </image>
+            <HBox alignment="CENTER_LEFT" spacing="20" styleClass="header-banner">
+                <ImageView fitHeight="170" fitWidth="170" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../logo1.PNG"/>
+                    </image>
                 </ImageView>
-            </AnchorPane>
+                <Region prefWidth="40"/>
+                <Label text="Mini ACTest" style="-fx-font-family: 'Impact';
+                -fx-font-weight: bold; -fx-font-size: 70px;
+                -fx-text-fill: #06447d;"/>
+            </HBox>
         </VBox>
     </top>
+
 
     <center>
         <StackPane fx:id="contentArea"/>
     </center>
 </BorderPane>
-

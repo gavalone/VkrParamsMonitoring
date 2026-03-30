@@ -10,15 +10,17 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
+import javafx.util.*;
 
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
+
+import static com.example.standtrain.util.Consts.REFRESH_MS;
+import static com.example.standtrain.util.Consts.MAX_POINTS;
 
 public abstract class BaseGraphController {
 
     private Timeline refresher;
-
     @FXML private VBox graphVBox;
 
     protected abstract List<LineChart<Number, Number>> getCharts();
@@ -29,8 +31,13 @@ public abstract class BaseGraphController {
     public void initialize() {
         List<LineChart<Number, Number>> charts = getCharts();
         List<NumberAxis> xAxes = getXAxes();
+
         for (int i = 0; i < charts.size(); i++) {
             setupChart(charts.get(i), xAxes.get(i));
+            NumberAxis yAxis = (NumberAxis) charts.get(i).getYAxis();
+            yAxis.setAutoRanging(false);
+            yAxis.setLowerBound(Consts.chartBond);
+            yAxis.setUpperBound(-Consts.chartBond);
         }
 
         graphVBox.parentProperty().addListener((obs, oldParent, newParent) -> {
@@ -55,12 +62,24 @@ public abstract class BaseGraphController {
 
         xAxis.setAutoRanging(false);
         xAxis.setLowerBound(0);
-        xAxis.setUpperBound(Consts.MAX_POINTS);
-        xAxis.setTickUnit(Math.max(1, Consts.MAX_POINTS / 10));
+        xAxis.setUpperBound(MAX_POINTS);
+        xAxis.setTickUnit(Math.max(1, MAX_POINTS / 10));
+
+
+        xAxis.setTickLabelFormatter(new StringConverter<Number>() {
+            @Override
+            public String toString(Number object) {
+                return String.format("%.1f", object.doubleValue() * Consts.msPerPoint);
+            }
+            @Override
+            public Number fromString(String string) {
+                return Double.parseDouble(string) / Consts.msPerPoint;
+            }
+        });
     }
 
     private void startRefresher() {
-        refresher = new Timeline(new KeyFrame(Duration.millis(Consts.REFRESH_MS), e -> refreshCharts()));
+        refresher = new Timeline(new KeyFrame(Duration.millis(REFRESH_MS), e -> refreshCharts()));
         refresher.setCycleCount(Timeline.INDEFINITE);
         refresher.play();
     }
@@ -93,7 +112,7 @@ public abstract class BaseGraphController {
             return;
         }
 
-        int start = Math.max(0, n - Consts.MAX_POINTS);
+        int start = Math.max(0, n - MAX_POINTS);
         ObservableList<XYChart.Data<Number, Number>> points = FXCollections.observableArrayList();
         for (int i = start; i < n; i++) {
             points.add(new XYChart.Data<>(i - start, snapshot[i] != null ? snapshot[i] : 0.0));

@@ -3,6 +3,7 @@ package com.example.standtrain.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
