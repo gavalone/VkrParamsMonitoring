@@ -38,10 +38,10 @@ public class SingleGraphController extends BaseGraphController {
 
     private void setLineColor(int channelNum) {
         switch (channelNum) {
-            case 1 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #FF8C00");
-            case 2 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8B0000");
-            case 3 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8FBC8F");
-            case 4 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #2F4F4F");
+            case 1 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #FF8C00; -fx-stroke-width: 4px");
+            case 2 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8B0000; -fx-stroke-width: 4px");
+            case 3 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #8FBC8F; -fx-stroke-width: 4px");
+            case 4 -> chart.getData().get(0).getNode().setStyle("-fx-stroke: #2F4F4F; -fx-stroke-width: 4px");
         }
 
 //        Platform.runLater(() -> {

@@ -50,10 +50,10 @@ public class CombinedGraphController extends BaseGraphController {
 
         chart.getData().addAll(s1, s2, s3, s4);
 
-        s1.getNode().setStyle("-fx-stroke: #FF8C00");
-        s2.getNode().setStyle("-fx-stroke: #8B0000");
-        s3.getNode().setStyle("-fx-stroke: #8FBC8F");
-        s4.getNode().setStyle("-fx-stroke: #2F4F4F");
+        s1.getNode().setStyle("-fx-stroke: #2F4F4F");
+        s2.getNode().setStyle("-fx-stroke: #8FBC8F");
+        s3.getNode().setStyle("-fx-stroke: #8B0000");
+        s4.getNode().setStyle("-fx-stroke: #FF8C00");
 
         xAxis.setAutoRanging(false);
         xAxis.setLowerBound(0);

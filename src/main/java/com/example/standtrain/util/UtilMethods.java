@@ -23,7 +23,6 @@ public class UtilMethods {
 
         try {
             if (file.exists()) {
-                // Load existing config
                 FileInputStream fis = new FileInputStream(file);
                 properties.load(fis);
                 fis.close();
@@ -40,6 +39,10 @@ public class UtilMethods {
                 Config.ipLTA_2 = Integer.parseInt(properties.getProperty("ipLTA_2"));
                 Config.ipLTA_3 = Integer.parseInt(properties.getProperty("ipLTA_3"));
                 Config.ipLTA_4 = Integer.parseInt(properties.getProperty("ipLTA_4"));
+                Config.chart_bond = Double.parseDouble(properties.getProperty("chart_bond"));
+                Config.amperage_bound = Double.parseDouble(properties.getProperty("amperage_bound"));
+                Config.voltage_bound = Double.parseDouble(properties.getProperty("voltage_bound"));
+
 
             } else {
                 //file doesn't exist, create it with default values
@@ -55,6 +58,9 @@ public class UtilMethods {
                 properties.setProperty("ipLTA_2", String.valueOf(168));
                 properties.setProperty("ipLTA_3", String.valueOf(1));
                 properties.setProperty("ipLTA_4", String.valueOf(20));
+                properties.setProperty("chart_bond", String.valueOf(0.0001));
+                properties.setProperty("amperage_bound", String.valueOf(15.0));
+                properties.setProperty("voltage_bound", String.valueOf(10.0));
 
                 FileOutputStream fos = new FileOutputStream(file);
                 properties.store(fos, "Configuration");
@@ -67,8 +73,10 @@ public class UtilMethods {
 
 
     final static double[] tempList = new double[]{
-            -200,-190,-180,-170,-160,-150,-140,-130,-120,-110,-100,-90,-80,-70,-60,-50,-40,-30,-20,-10,0,
-            10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200
+            -200,-190,-180,-170,-160,-150,-140,-130,-120,-110,
+            -100,-90,-80,-70,-60,-50,-40,-30,-20,-10,
+            0,10,20,30,40,50,60,70,80,90,
+            100,110,120,130,140,150,160,170,180,190,200
     };
 
     final static double[] resistanceList = new double[]{
@@ -90,8 +98,8 @@ public class UtilMethods {
             if (resistance >= resistanceList[i] && resistance <= resistanceList[i + 1]) {
                 double t1 = tempList[i];
                 double t2 = tempList[i + 1];
-                double r1 = resistanceList[i];
-                double r2 = resistanceList[i + 1];
+                double r1 = resistanceList[i]+3.5;
+                double r2 = resistanceList[i + 1]+3.5;
                 return t1 + (resistance - r1) * (t2 - t1) / (r2 - r1);
             }
         }

@@ -24,25 +24,25 @@
             <RowConstraints percentHeight="5"/>
         </rowConstraints>
 
-        <LineChart fx:id="chart1" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="default-color1">
+        <LineChart fx:id="chart4" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="default-color1">
             <xAxis><NumberAxis fx:id="xAxis1" label="Time (sec)"/></xAxis>
             <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
         </LineChart>
         <Label text="Канал 1" style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.halignment="CENTER"/>
 
-        <LineChart fx:id="chart2" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="default-color2">
+        <LineChart fx:id="chart3" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="default-color2">
             <xAxis><NumberAxis fx:id="xAxis2" label="Time (sec)"/></xAxis>
             <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
         </LineChart>
         <Label text="Канал 2" style="-fx-font-weight: bold;" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.halignment="CENTER"/>
 
-        <LineChart fx:id="chart3" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="default-color3">
+        <LineChart fx:id="chart2" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="default-color3">
             <xAxis><NumberAxis fx:id="xAxis3" label="Time (sec)"/></xAxis>
             <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
         </LineChart>
         <Label text="Канал 3" style="-fx-font-weight: bold;" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.halignment="CENTER"/>
 
-        <LineChart fx:id="chart4" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="default-color4">
+        <LineChart fx:id="chart1" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="default-color4">
             <xAxis><NumberAxis fx:id="xAxis4" label="Time (sec)"/></xAxis>
             <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
         </LineChart>

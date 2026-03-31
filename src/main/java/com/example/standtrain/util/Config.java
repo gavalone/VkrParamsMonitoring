@@ -16,4 +16,9 @@ public class Config {
     public static int ipLTA_3;
     public static int ipLTA_4;
 
+    public static double chart_bond;
+
+    public static double voltage_bound;
+    public static double amperage_bound;
+
 }

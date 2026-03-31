@@ -13,6 +13,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
+<?import javafx.scene.chart.LineChart?>
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.example.standtrain.controllers.TrainMovement">
@@ -21,7 +22,7 @@
         <VBox alignment="CENTER" spacing="20" style="-fx-padding: 20;">
 
             <HBox alignment="CENTER" spacing="10">
-                <Label text="36.7" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill:#515b60" />
+                <Label fx:id="tempLabel" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill:#515b60" />
                 <ImageView fitWidth="70" preserveRatio="true" pickOnBounds="true">
                     <image>
                         <Image url="@/thermometer.png"/>
@@ -29,28 +30,38 @@
                 </ImageView>
             </HBox>
 
+
             <HBox fx:id="chartsHBox" alignment="CENTER" spacing="30">
-                <BarChart fx:id="barChart1" prefWidth="270" prefHeight="570" animated="true">
-                    <xAxis><CategoryAxis /></xAxis>
-                    <yAxis><NumberAxis /></yAxis>
-                </BarChart>
+                <VBox alignment="CENTER" spacing="5">
+                    <LineChart fx:id="chart1" prefWidth="800" prefHeight="500" styleClass="default-color5">
+                        <xAxis><NumberAxis fx:id="xAxis1" label="Samples"/></xAxis>
+                        <yAxis><NumberAxis label="Voltage (V)"/></yAxis>
+                    </LineChart>
+                    <Label text="Напряжение" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                </VBox>
 
-                <BarChart fx:id="barChart2" prefWidth="270" prefHeight="570" animated="true">
-                    <xAxis><CategoryAxis /></xAxis>
-                    <yAxis><NumberAxis /></yAxis>
-                </BarChart>
+                <VBox alignment="CENTER" spacing="5">
+                    <LineChart fx:id="chart2" prefWidth="800" prefHeight="500" styleClass="default-color6">
+                        <xAxis><NumberAxis fx:id="xAxis2" label="Samples"/></xAxis>
+                        <yAxis><NumberAxis label="Amperage (mA)"/></yAxis>
+                    </LineChart>
+                    <Label text="Ток" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                </VBox>
 
-                <BarChart fx:id="barChart3" prefWidth="270" prefHeight="570" animated="true">
-                    <xAxis><CategoryAxis /></xAxis>
-                    <yAxis><NumberAxis /></yAxis>
-                </BarChart>
+                <VBox alignment="CENTER" spacing="5">
+                    <LineChart fx:id="chart3" prefWidth="800" prefHeight="500" styleClass="default-color7">
+                        <xAxis><NumberAxis fx:id="xAxis3" label="Samples"/></xAxis>
+                        <yAxis><NumberAxis label="Power (mW)"/></yAxis>
+                    </LineChart>
+                    <Label text="Мощность" style="-fx-font-weight: bold; -fx-font-size: 14px;" />
+                </VBox>
             </HBox>
 
         </VBox>
     </center>
 
     <right>
-        <StackPane alignment="CENTER_LEFT" style="-fx-padding: 0 250 0 0;">
+        <StackPane alignment="CENTER_LEFT" style="-fx-padding: 0 40 0 0;">
             <VBox alignment="CENTER" spacing="28" style="-fx-padding: 24;">
                 <Label styleClass="title-label" text="Управление скоростью" />
                 <StackPane styleClass="lever-box">

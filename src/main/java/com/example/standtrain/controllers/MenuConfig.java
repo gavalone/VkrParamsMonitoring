@@ -6,6 +6,8 @@ import javafx.application.Platform;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 
+import java.io.*;
+
 import static com.example.standtrain.util.Globals.handleE16;
 import static com.example.standtrain.util.Globals.threadE16running;
 import static com.example.standtrain.util.Globals.adcThread;
@@ -37,8 +39,8 @@ public class MenuConfig {
     }
 
     public void e16initialize(){
+        try {
         if (!handleE16initialized) {
-            try {
                 handleE16 = InitializationE16.createHandle();
 
                 status = InitializationE16.openE16(handleE16);
@@ -60,10 +62,10 @@ public class MenuConfig {
                 if (status==0){
                     handleE16initialized = true;
                 }
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -91,8 +93,8 @@ public class MenuConfig {
 
     public void launchLTAThread(){
         if (handleLTAinitialized) {
-            addTextToScroll("LTA thread started");
             if (ltaThread != null && ltaThread.isAlive()) return;
+            addTextToScroll("LTA thread started");
             threadLTArunning = true;
             ltaThread = DataOutputLTA.startAsynchroAcquisitionLTA();
         }

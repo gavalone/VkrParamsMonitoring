@@ -32,8 +32,8 @@ public class DataOutputLTA {
             DoubleByReference dst_data = new DoubleByReference();
             IntByReference size = new IntByReference(1);
             int[] channels = {0, 2, 4};
-            //int in_flags = Consts.LTA27_PD_FLAGS_CALIBR | Consts.LTA27_PD_FLAGS_VALUE; (оно должно быть от структуры поэтому убрано)
-            int in_flags = 0x02; //physical value
+            //int in_flags = Consts.LTA27_PD_FLAGS_CALIBR | Consts.LTA27_PD_FLAGS_VALUE; (оно должно быть от структуры поэтому убрал)
+            int in_flags = 0x03; //physical value
             int status;
 
             try {
@@ -44,8 +44,6 @@ public class DataOutputLTA {
                         if (status != 0) continue;
                         status = LTA27_Api.INSTANCE.LTA27_ProcessData(handleLTADevice, channel, src_data, dst_data, size, in_flags);
                         if (status != 0) continue;
-
-                        System.out.println(dst_data.getValue());
 
                         ArrayBlockingQueue<Double> target = switch (channel) {
                             case 0 -> voltageBuf;

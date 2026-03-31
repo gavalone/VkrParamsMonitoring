@@ -1,6 +1,6 @@
 
 .root {
-    -fx-background-color: #f9f9f9;
+    -fx-background-color: #f9f9f9; /* light neutral */
 }
 
 .tool-bar {
@@ -70,7 +70,7 @@
 }
 
 .vertical-slider .thumb {
-    -fx-background-color: linear-gradient(to bottom, #a0522d 0%, #8b4513 100%); /* wood gradient */
+    -fx-background-color: linear-gradient(to bottom, #a0522d 0%, #8b4513 100%);
     -fx-background-insets: 0;
     -fx-background-radius: 10px;
     -fx-padding: 5;
@@ -121,6 +121,20 @@
     -fx-stroke-width: 2px;
 }
 
+.default-color5 .chart-series-line {
+    -fx-stroke: #ff9a00;
+    -fx-stroke-width: 4px;
+}
+
+.default-color6 .chart-series-line {
+    -fx-stroke: #d55050;
+    -fx-stroke-width: 4px;
+}
+
+.default-color7 .chart-series-line {
+    -fx-stroke: #69accb;
+    -fx-stroke-width: 4px;
+}
 
 .charts-container {
     -fx-background-color: linear-gradient(to bottom right, rgba(255,255,255,0.97), rgba(240,240,240,0.95));

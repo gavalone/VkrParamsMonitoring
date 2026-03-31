@@ -36,8 +36,8 @@ public abstract class BaseGraphController {
             setupChart(charts.get(i), xAxes.get(i));
             NumberAxis yAxis = (NumberAxis) charts.get(i).getYAxis();
             yAxis.setAutoRanging(false);
-            yAxis.setLowerBound(Consts.chartBond);
-            yAxis.setUpperBound(-Consts.chartBond);
+            yAxis.setLowerBound(-Config.chart_bond);
+            yAxis.setUpperBound(Config.chart_bond);
         }
 
         graphVBox.parentProperty().addListener((obs, oldParent, newParent) -> {
@@ -51,6 +51,12 @@ public abstract class BaseGraphController {
         if (graphVBox.getParent() != null) {
             startRefresher();
         }
+
+        graphVBox.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (oldScene != null && newScene == null) {
+                stopRefresher();
+            }
+        });
     }
 
     private void setupChart(LineChart<Number, Number> chart, NumberAxis xAxis) {

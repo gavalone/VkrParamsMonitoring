@@ -63,13 +63,13 @@ public class ADCGraphs {
             case "Общий график" ->
                     loadGraph("/com/example/standtrain/views/GraphMain.fxml", null, -1);
             case "Канал 1" ->
-                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf1, 1);
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf4, 1);
             case "Канал 2" ->
-                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf2, 2);
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf3, 2);
             case "Канал 3" ->
-                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf3, 3);
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf2, 3);
             case "Канал 4" ->
-                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf4, 4);
+                    loadGraph("/com/example/standtrain/views/SingleGraph.fxml", buf1, 4);
             case "Вывод графиков с 4-ех каналов" ->
                     loadGraph("/com/example/standtrain/views/AllGraphs.fxml", null, -1);
         }
