@@ -17,6 +17,9 @@ import static com.example.standtrain.util.Globals.buf3;
 import static com.example.standtrain.util.Globals.buf4;
 import static com.example.standtrain.util.Consts.REFRESH_MS;
 
+/**
+ Дочерний класс для отображения 4-ех графиков на одной панели
+ */
 public class CombinedGraphController extends BaseGraphController {
 
     @FXML private LineChart<Number, Number> chart;
@@ -60,13 +63,12 @@ public class CombinedGraphController extends BaseGraphController {
         xAxis.setUpperBound(Consts.MAX_POINTS);
         xAxis.setTickUnit(50);
 
-
         startRefresher();
     }
 
     private javafx.animation.Timeline refresher;
 
-
+/* Запуск автообновления для динамической перерисовки графиков */
     private void startRefresher() {
         refresher = new javafx.animation.Timeline(
                 new javafx.animation.KeyFrame(javafx.util.Duration.millis(REFRESH_MS), e -> refreshAll())
@@ -75,6 +77,7 @@ public class CombinedGraphController extends BaseGraphController {
         refresher.play();
     }
 
+/* Перерисовка 4-ех графиков */
     private void refreshAll() {
         @SuppressWarnings("unchecked")
         List<XYChart.Series<Number, Number>> seriesList = (List<XYChart.Series<Number, Number>>) (List<?>) chart.getData();

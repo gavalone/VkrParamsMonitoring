@@ -15,6 +15,9 @@ import static com.example.standtrain.util.Globals.buf2;
 import static com.example.standtrain.util.Globals.buf3;
 import static com.example.standtrain.util.Globals.buf4;
 
+/**
+ Класс, реализующий переключение графиков вывода данных с АЦП
+ */
 public class ADCGraphs {
 
     @FXML private ComboBox<String> comboBox;
@@ -34,6 +37,7 @@ public class ADCGraphs {
         loadGraph("/com/example/standtrain/views/AllGraphs.fxml", null, 0);
     }
 
+    /* Метод перезагрузки view для переключения графиков */
     private void loadGraph(String fxmlPath, ArrayBlockingQueue<Double> buffer, int channelNum) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
@@ -55,6 +59,8 @@ public class ADCGraphs {
     }
 
     @FXML
+
+    /* Метод переключения графиков */
     private void changeGraph() {
         String selected = comboBox.getValue();
         if (selected == null) return;

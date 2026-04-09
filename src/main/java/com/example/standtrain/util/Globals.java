@@ -27,7 +27,6 @@ public class Globals {
     public static final ArrayBlockingQueue<Double> buf3 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
     public static final ArrayBlockingQueue<Double> buf4 = new ArrayBlockingQueue<>(Consts.E16_BUFFER_CAPACITY);
 
-
     public static final int LTA_BUFFERS_CAPACITY = 100;
     public static final ArrayBlockingQueue<Double> voltageBuf = new ArrayBlockingQueue<>(LTA_BUFFERS_CAPACITY);
     public static final ArrayBlockingQueue<Double> amperageBuf = new ArrayBlockingQueue<>(LTA_BUFFERS_CAPACITY);

@@ -3,7 +3,6 @@ package com.example.standtrain.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
 
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -13,6 +12,9 @@ import static com.example.standtrain.util.Globals.buf2;
 import static com.example.standtrain.util.Globals.buf3;
 import static com.example.standtrain.util.Globals.buf4;
 
+/**
+ Дочерний класс для вывода графиков на 4-ех панелях
+ */
 public class FourGraphsController extends BaseGraphController {
 
     @FXML private LineChart<Number, Number> chart1;

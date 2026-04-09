@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import javafx.scene.control.Label;
 
-
+/**
+ Дочерний класс для отображения отдельных графиков на всю страницу
+ */
 public class SingleGraphController extends BaseGraphController {
 
     @FXML private LineChart<Number, Number> chart;
@@ -18,6 +20,7 @@ public class SingleGraphController extends BaseGraphController {
 
     private ArrayBlockingQueue<Double> dataQueue;
 
+/* В зависимости от выбранного канала выводится соответствующий буфер, название и цвет */
     public void setDataQueue(ArrayBlockingQueue<Double> queue, int channelNum) {
         dataQueue = queue;
         titleLabel.setText("Канал " + channelNum);

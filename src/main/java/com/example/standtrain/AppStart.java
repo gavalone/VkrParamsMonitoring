@@ -13,7 +13,6 @@ import java.util.*;
 
 import static com.example.standtrain.util.Globals.*;
 
-
 public class AppStart extends Application {
     @Override
     public void start(Stage stage) throws IOException {

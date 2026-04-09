@@ -43,7 +43,6 @@ public class UtilMethods {
                 Config.amperage_bound = Double.parseDouble(properties.getProperty("amperage_bound"));
                 Config.voltage_bound = Double.parseDouble(properties.getProperty("voltage_bound"));
 
-
             } else {
                 //file doesn't exist, create it with default values
                 properties.setProperty("ipE16_1", String.valueOf(192));
@@ -70,7 +69,6 @@ public class UtilMethods {
             e.printStackTrace();
         }
     }
-
 
     final static double[] tempList = new double[]{
             -200,-190,-180,-170,-160,-150,-140,-130,-120,-110,
@@ -105,5 +103,4 @@ public class UtilMethods {
         }
         return 0;
     }
-
 }

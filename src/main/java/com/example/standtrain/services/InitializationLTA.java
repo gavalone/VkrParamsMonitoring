@@ -2,11 +2,9 @@ package com.example.standtrain.services;
 
 import com.example.standtrain.interfaces.*;
 import com.example.standtrain.util.*;
-import com.sun.jna.*;
 import com.sun.jna.ptr.*;
 import static com.example.standtrain.util.Globals.handleLTACon;
 import static com.example.standtrain.util.Globals.handleLTADevice;
-
 
 public class InitializationLTA {
     public static int openLTAByIp() {
@@ -37,7 +35,6 @@ public class InitializationLTA {
         }
         return status;
     }
-
 
     public static int enableChannels() {
         LTAConfigStruct config = new LTAConfigStruct();

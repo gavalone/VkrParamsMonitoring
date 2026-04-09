@@ -9,8 +9,6 @@ import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.util.*;
-
-import java.util.*;
 import java.util.concurrent.*;
 
 import static com.example.standtrain.util.Globals.handleE16;
@@ -22,6 +20,9 @@ import static com.example.standtrain.util.Globals.voltageBuf;
 import static com.example.standtrain.util.Globals.amperageBuf;
 import static com.example.standtrain.util.Globals.resistanceBuf;
 
+/**
+ Класс для страницы управления стендом
+ */
 public class TrainMovement {
     @FXML
     private Slider speedSlider;
@@ -41,7 +42,6 @@ public class TrainMovement {
     private final XYChart.Series<Number, Number> series3 = new XYChart.Series<>();
 
     @FXML private HBox chartsHBox;
-
 
     @FXML Label tempLabel;
 
@@ -69,21 +69,22 @@ public class TrainMovement {
         yAxis3.setUpperBound(Config.voltage_bound*Config.amperage_bound*0.5);
         yAxis3.setForceZeroInRange(true);
 
-        double sliderValue = (lastVoltage - 2.5) / 0.025; // inverse mapping
+        // Инициализация "рычага" к последнему сохраненному напряжению
+        double sliderValue = (lastVoltage - 2.5) / 0.025; // элемент по образу
         speedSlider.setValue(sliderValue);
         speedLabel.setText(String.format("Напряжение: %.2f V", lastVoltage));
 
+        // Управление скоростью в режиме реального времени
         speedSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
             double sliderVal = newVal.doubleValue();
-            double voltage = 2.5 + sliderVal * 0.025;        // map to 2.5..5V
+            double voltage = 2.5 + sliderVal * 0.025;        // конвертация к напряжению от 2.5 до 5В
             speedLabel.setText(String.format("Напряжение: %.2f V", voltage));
             changeSpeed(voltage);
-            lastVoltage = voltage;                   // save to globals
+            lastVoltage = voltage;                   // сохранение в глобальные переменные
         });
 
-        //toggle direction
+        // Переключение полярности реле (направление стендового поезда)
         directionButton.setOnAction(e -> changeDirection());
-
 
         chartsHBox.parentProperty().addListener((obs, oldParent, newParent) -> {
             if (newParent == null) {
@@ -112,6 +113,7 @@ public class TrainMovement {
         }
     }
 
+/* Изменение направления движения стендового поезда */
     public void changeDirection() {
         if (handleE16initialized) {
             if (curDirection) {
@@ -125,9 +127,8 @@ public class TrainMovement {
         }
     }
 
-
     private Timeline refresher;
-
+/* Инициализация параметров графиков */
     private void setupChart(LineChart<Number, Number> chart, XYChart.Series<Number, Number> series, NumberAxis xAxis) {
         chart.setAnimated(false);
         chart.setCreateSymbols(false);
@@ -139,10 +140,11 @@ public class TrainMovement {
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(Consts.LTAChartsSize);
         xAxis.setTickUnit(Math.max(1, Consts.LTAChartsSize / 10));
-        // y-axis auto-ranging is fine to keep
+
         // chart.getYAxis().setAutoRanging(true);
     }
 
+/* Запуск автообновления для динамической перерисовки графиков */
     private void startRefresher() {
         if (refresher != null && refresher.getStatus() == Timeline.Status.RUNNING) return;
 
@@ -151,20 +153,21 @@ public class TrainMovement {
         refresher.play();
     }
 
+/* Остановление автообновления графика */
     private void stopRefresher() {
         if (refresher != null) {
             refresher.stop();
             refresher = null;
         }
-        // optionally clear charts:
+        // очистка чартов
         series1.getData().clear();
         series2.getData().clear();
         series3.getData().clear();
     }
 
-
-
     private int tempUpdateCounter = 49;
+
+    /* Перерисовка графиков */
     private void refreshAllCharts() {
         updateVoltageChartFromQueue(voltageBuf, series1, xAxis1);
         updateChartFromQueue(amperageBuf, series2, xAxis2);
@@ -180,9 +183,9 @@ public class TrainMovement {
         }
     }
 
-
-
+/* Отображение графика напряжения из очереди */
     private void updateVoltageChartFromQueue(ArrayBlockingQueue<Double> queue, XYChart.Series<Number, Number> series, NumberAxis xAxis) {
+        // приведение очереди к типу данных, с которыми работает JavaFX + копирование данных, чтобы не блокировать очередь
         Double[] snapshot = queue.toArray(new Double[0]);
         for (int i = 0; i < snapshot.length; i++) {
             double value = snapshot[i];
@@ -211,14 +214,17 @@ public class TrainMovement {
             points.add(new XYChart.Data<>(i - start, value));
         }
 
+        // Обновление всех точек массивом для безопасности
         series.getData().setAll(points);
 
+        // адаптация оси Х под данные
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(Math.max(1, n - start));
     }
 
+/* Отображение графика силы тока из очереди */
     private void updateChartFromQueue(ArrayBlockingQueue<Double> queue, XYChart.Series<Number, Number> series, NumberAxis xAxis) {
-        // snapshot the queue contents - non-destructive
+        // приведение очереди к типу данных, с которыми работает JavaFX + копирование данных, чтобы не блокировать очередь
         Double[] snapshot = queue.toArray(new Double[0]);
         int n = snapshot.length;
         if (n == 0) {
@@ -232,19 +238,17 @@ public class TrainMovement {
         ObservableList<XYChart.Data<Number, Number>> points = FXCollections.observableArrayList();
         for (int i = start; i < n; i++) {
             Double v = snapshot[i];
-            double value = (v == null) ? 0.0 : v; // defensive
+            double value = (v == null) ? 0.0 : v;
             points.add(new XYChart.Data<>(i - start, value));
         }
 
-        // replace all points atomically (safer than incremental updates for simplicity)
         series.getData().setAll(points);
 
-        // update x axis range to match displayed window
         xAxis.setLowerBound(0);
         xAxis.setUpperBound(Math.max(1, n - start));
     }
 
-
+/* Отображение графика мощности из очереди */
     private void updateMultiplicationChart(ArrayBlockingQueue<Double> q1, ArrayBlockingQueue<Double> q2,
                                            XYChart.Series<Number, Number> series, NumberAxis xAxis) {
         Double[] s1 = q1.toArray(new Double[0]);

@@ -43,7 +43,6 @@ public class DataOutputE16 {
         return X502Api.INSTANCE.X502_StreamsStop(hnd);
     }
 
-
     public static Thread startSynchroAcquisition(Pointer handle, int lchCount) {
         long recvBytes = (long) Consts.READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
         final Memory recvBuf = new Memory(recvBytes);
@@ -76,7 +75,6 @@ public class DataOutputE16 {
                         break;
                     }
 
-
                     adcSizeRef.setValue(Consts.READ_BLOCK_SIZE);
                     dinSizeRef.setValue(Consts.READ_BLOCK_SIZE);
 
@@ -102,15 +100,13 @@ public class DataOutputE16 {
                     }
                     int firstLch = firstLchRef.getValue();
 
-
                     //copy data from memory to java array (easier to work with but resource intensive)
                     double[] adc = new double[adcCount];
                     for (int i = 0; i < adcCount; i++) {
                         adc[i] = adcBuf.getDouble((long) i * Native.getNativeSize(Double.TYPE));
                     }
 
-
-                    //block for division of data per channel from singular array
+                   //block for division of data per channel from singular array
                     int capacityPerChannel = (adcCount + lchCount - 1) / lchCount;
                     double[][] channels = new double[lchCount][capacityPerChannel];
                     int[] idx = new int[lchCount];
@@ -124,8 +120,6 @@ public class DataOutputE16 {
                     for (int ch = 0; ch < lchCount; ch++) {
                         finalChannels[ch] = Arrays.copyOf(channels[ch], idx[ch]);
                     }
-
-
 
                     for (int ch = 0; ch < lchCount && ch < 4; ch++) {
                         ArrayBlockingQueue<Double> target;
@@ -155,6 +149,4 @@ public class DataOutputE16 {
         t.start(); //start the thread
         return t;
     }
-
-
 }

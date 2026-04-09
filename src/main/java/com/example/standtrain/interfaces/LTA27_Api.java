@@ -15,6 +15,4 @@ public interface LTA27_Api extends Library {
     int LTA27_ProcessData(Pointer dev_hnd, int ch_num, IntByReference src_data, DoubleByReference dst_data, IntByReference size, int in_flags);
     Pointer LTA27_GetErrorString(int errCode, int lang);
     int LTA27_SetConfig(Pointer dev_hnd, LTAConfigStruct lta27_config_t , int flags);
-
-
 }

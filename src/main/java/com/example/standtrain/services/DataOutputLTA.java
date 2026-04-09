@@ -12,7 +12,6 @@ import static com.example.standtrain.util.Globals.voltageBuf;
 import static com.example.standtrain.util.Globals.amperageBuf;
 import static com.example.standtrain.util.Globals.resistanceBuf;
 
-
 public class DataOutputLTA {
     public static int readChannel(Pointer handle, int regAddr) {
         IntByReference val = new IntByReference();
@@ -65,5 +64,4 @@ public class DataOutputLTA {
         t.start();
         return t;
     }
-
 }

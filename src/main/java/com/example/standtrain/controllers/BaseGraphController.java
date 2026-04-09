@@ -18,6 +18,9 @@ import java.util.concurrent.ArrayBlockingQueue;
 import static com.example.standtrain.util.Consts.REFRESH_MS;
 import static com.example.standtrain.util.Consts.MAX_POINTS;
 
+/**
+ Класс (родительский), описывающий базовый функионал графиков
+ */
 public abstract class BaseGraphController {
 
     private Timeline refresher;
@@ -59,6 +62,7 @@ public abstract class BaseGraphController {
         });
     }
 
+/* Инициализация параметров графика */
     private void setupChart(LineChart<Number, Number> chart, NumberAxis xAxis) {
         chart.setAnimated(false);
         chart.setCreateSymbols(false);
@@ -84,12 +88,14 @@ public abstract class BaseGraphController {
         });
     }
 
+/* Автообновление для динамической перерисовки графика */
     private void startRefresher() {
         refresher = new Timeline(new KeyFrame(Duration.millis(REFRESH_MS), e -> refreshCharts()));
         refresher.setCycleCount(Timeline.INDEFINITE);
         refresher.play();
     }
 
+/* Остановление автообновления графика */
     private void stopRefresher() {
         if (refresher != null) {
             refresher.stop();
@@ -100,6 +106,7 @@ public abstract class BaseGraphController {
         }
     }
 
+/* Перерисовка графиков в соответсвии с их количеством */
     private void refreshCharts() {
         List<LineChart<Number, Number>> charts = getCharts();
         List<NumberAxis> xAxes = getXAxes();
@@ -110,6 +117,7 @@ public abstract class BaseGraphController {
         }
     }
 
+/* Перерисовка графика */
     private void updateChartFromQueue(ArrayBlockingQueue<Double> queue, LineChart<Number, Number> chart, NumberAxis xAxis) {
         Double[] snapshot = queue.toArray(new Double[0]);
         int n = snapshot.length;
