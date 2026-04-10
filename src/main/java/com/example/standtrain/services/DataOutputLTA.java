@@ -13,18 +13,6 @@ import static com.example.standtrain.util.Globals.amperageBuf;
 import static com.example.standtrain.util.Globals.resistanceBuf;
 
 public class DataOutputLTA {
-    public static int readChannel(Pointer handle, int regAddr) {
-        IntByReference val = new IntByReference();
-        int status = LTA_Api.INSTANCE.LTA_ReadReg(handle, regAddr, val);
-        if (status == 0) {
-            int value = val.getValue();
-            System.out.printf(String.valueOf(value));
-        } else {
-            System.err.println(status);
-        }
-        return status;
-    }
-
     public static Thread startAsynchroAcquisitionLTA() {
         Thread t = new Thread(() -> {
             IntByReference src_data = new IntByReference();

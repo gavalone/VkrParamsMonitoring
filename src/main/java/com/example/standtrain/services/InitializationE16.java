@@ -26,10 +26,6 @@ public class InitializationE16 {
         return 0;
     }
 
-    public static int iniE16DigReg(Pointer handle){
-        return X502Api.INSTANCE.X502_AsyncOutDig(handle, 1, 0);
-    }
-
     public static int put16Data(Pointer handle){
         return X502Api.INSTANCE.X502_Configure(handle, 0); //flags should be 0 by api reference
     }

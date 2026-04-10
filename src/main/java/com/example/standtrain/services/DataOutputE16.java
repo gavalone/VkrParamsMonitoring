@@ -14,20 +14,6 @@ import java.util.*;
 import java.util.concurrent.*;
 
 public class DataOutputE16 {
-    public static double[] asyncGetAdcFrame(Pointer handle, int flags, int timeoutMs, int lchCount) {
-        long bytes = (long) lchCount * Native.getNativeSize(Double.TYPE); // 8 * count, allocate native buffer for lchCount doubles
-        Memory buf = new Memory(bytes);
-
-        int err = X502Api.INSTANCE.X502_AsyncGetAdcFrame(handle, flags, timeoutMs, buf);
-        System.out.println("X502_AsyncGetAdcFrame: " + err);
-
-        double[] out = new double[lchCount];
-        for (int i = 0; i < lchCount; i++) {
-            out[i] = buf.getDouble((long) i * Native.getNativeSize(Double.TYPE));
-        }
-        return out;
-    }
-
     public static int streamsEnable(Pointer hnd){
         return X502Api.INSTANCE.X502_StreamsEnable(hnd, Consts.X502_STREAM_ADC);
     }
