@@ -11,4 +11,6 @@ module com.example.standtrain {
     opens com.example.standtrain.services to javafx.fxml;
     exports com.example.standtrain.util;
     opens com.example.standtrain.util to javafx.fxml, com.sun.jna;
+    exports com.example.standtrain.util.structs;
+    opens com.example.standtrain.util.structs to com.sun.jna, javafx.fxml;
 }

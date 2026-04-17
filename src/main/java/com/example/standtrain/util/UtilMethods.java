@@ -13,7 +13,6 @@ public class UtilMethods {
             case 64 -> Consts.LTA27_A27_DR_64;
             case 128 -> Consts.LTA27_A27_DR_128;
             case 256 -> Consts.LTA27_A27_DR_256;
-            case 512 -> Consts.LTA27_A27_DR_512;
             default -> throw new IllegalArgumentException("Unsupported decimation rate: " + drValue);
         };
     }

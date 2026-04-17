@@ -70,7 +70,7 @@ public class TrainMovement {
         yAxis3.setForceZeroInRange(true);
 
         // Инициализация "рычага" к последнему сохраненному напряжению
-        double sliderValue = (lastVoltage - 2.5) / 0.025; // элемент по образу
+        double sliderValue = (lastVoltage - 2.5) / 0.025; // элемент по образу (пропорция)
         speedSlider.setValue(sliderValue);
         speedLabel.setText(String.format("Напряжение: %.2f V", lastVoltage));
 

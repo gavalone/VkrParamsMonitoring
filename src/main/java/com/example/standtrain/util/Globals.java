@@ -8,7 +8,6 @@ import java.util.concurrent.*;
 public class Globals {
     public static List<String> logs = new ArrayList<>();
     public static Pointer handleE16;
-    public static Pointer handleLTACon;
     public static Pointer handleLTADevice;
 
     public static boolean handleE16initialized = false;

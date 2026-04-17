@@ -2,6 +2,7 @@ package com.example.standtrain;
 
 import com.example.standtrain.interfaces.*;
 import com.example.standtrain.util.*;
+import com.sun.jna.ptr.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import java.io.*;
 import java.util.*;
 
 import static com.example.standtrain.util.Globals.*;
+
 
 public class AppStart extends Application {
     @Override
@@ -42,7 +44,9 @@ public class AppStart extends Application {
 
         if (handleLTAinitialized){
             LTA27_Api.INSTANCE.LTA27_DeInit(handleLTADevice, 0);
-            LTA_Api.INSTANCE.LTA_Close(handleLTACon);
+            PointerByReference pointerByReference = new PointerByReference();
+            pointerByReference.setValue(handleLTADevice);
+            LTA27_Api.INSTANCE.LTA_Close(pointerByReference, 0);
             handleLTAinitialized = false;
         }
 
