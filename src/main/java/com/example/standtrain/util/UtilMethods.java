@@ -3,6 +3,13 @@ package com.example.standtrain.util;
 import java.io.*;
 import java.util.*;
 
+/**
+ * Прочие методы:
+ * - преобразование IP-адреса
+ * - подгрузка внесненых настроек в config.properties или его создание (при отсутствии) с инициализацией
+ * начальных значений
+ * - конвертация значений сопротивления в температуру
+ */
 public class UtilMethods {
     public static int createIp(int o1, int o2, int o3, int o4) {
         return (o1 << 24) | (o2 << 16) | (o3 << 8) | o4;

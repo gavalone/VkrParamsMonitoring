@@ -5,6 +5,7 @@ import com.example.standtrain.util.*;
 import com.sun.jna.*;
 
 public class DataInputE16 {
+    // асинхронный вывод значения на один из каналов ЦАП
     public static int putV(double v, Pointer handle){
         return X502Api.INSTANCE.X502_AsyncOutDac(handle, Consts.X502_DAC_CH1, v, Consts.X502_DAC_FLAGS_VOLT); // вольты на цап
     }

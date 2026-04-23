@@ -14,8 +14,12 @@ import java.util.*;
 
 import static com.example.standtrain.util.Globals.*;
 
-
+/**
+ * Класс, отвечающий за корреткный запуск и завершение работы системы + подгрузка стилей и ресурсов
+ */
 public class AppStart extends Application {
+
+    // Инициализация сцены и загрузка стилей и ресурсов
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStart.class.getResource("Main.fxml"));
@@ -23,12 +27,13 @@ public class AppStart extends Application {
         scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("styles.css")).toExternalForm());
         Image icon = new Image("logo1.PNG");
         stage.getIcons().add(icon);
-        stage.setTitle("Mini ACTest");
+        stage.setTitle("Mini ACTest") ;
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
     }
 
+    // Корректное закрытие соединения при выходе из программы
     @Override
     public void stop() throws Exception {
         if (threadE16running){
@@ -49,10 +54,10 @@ public class AppStart extends Application {
             LTA27_Api.INSTANCE.LTA_Close(pointerByReference, 0);
             handleLTAinitialized = false;
         }
-
         super.stop();
     }
 
+    // Запуск приложения
     public static void main(String[] args) throws InterruptedException {
         UtilMethods.loadConfig();
         launch();

@@ -5,6 +5,9 @@ import com.sun.jna.*;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * Класс для глобальных переменных (хэндлы, буферы, флаги)
+ */
 public class Globals {
     public static List<String> logs = new ArrayList<>();
     public static Pointer handleE16;

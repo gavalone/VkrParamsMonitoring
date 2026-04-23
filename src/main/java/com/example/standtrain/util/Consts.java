@@ -1,5 +1,8 @@
 package com.example.standtrain.util;
 
+/**
+ * Класс с неизменяемыми параметрами
+ */
 public class Consts {
     public static final int X502_LCH_MODE_DIFF = 1;
     public static final int X502_ADC_RANGE_02 = 5;

@@ -4,7 +4,9 @@ import com.sun.jna.*;
 
 import java.util.*;
 
-//lta_dev_rec_t
+/**
+ * Класс, описывающий структуру модуля LTA для установления соединения
+ */
 public class LTADevRecStruct extends Structure {
     public byte[] devname = new byte[32];
     public byte[] serial_dev = new byte[32];

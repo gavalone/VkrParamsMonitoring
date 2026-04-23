@@ -128,6 +128,7 @@ public class TrainMovement {
     }
 
     private Timeline refresher;
+
 /* Инициализация параметров графиков */
     private void setupChart(LineChart<Number, Number> chart, XYChart.Series<Number, Number> series, NumberAxis xAxis) {
         chart.setAnimated(false);

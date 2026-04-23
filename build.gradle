@@ -1,7 +1,7 @@
 plugins {
     id 'java'
     id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.10'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
     id 'org.beryx.jlink' version '2.24.1'
 }
 
@@ -40,16 +40,18 @@ jar {
 }
 
 javafx {
-    version = '19-ea+3'
+    version = '21'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
     implementation group: 'net.java.dev.jna', name: 'jna', version: '5.6.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.2'
 }
 
 test {
     useJUnitPlatform()
+    modularity.inferModulePath = false
 }
 
 jlink {

@@ -1,5 +1,9 @@
 package com.example.standtrain.util;
 
+/**
+ * Класс с конфигурационными сетевыми настройками и параметрами отображения графика
+ * (берутся из config.properties)
+ */
 public class Config {
     public static int ipE16_1;
     public static int ipE16_2;
