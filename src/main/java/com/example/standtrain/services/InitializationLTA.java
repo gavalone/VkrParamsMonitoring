@@ -10,16 +10,21 @@ import java.nio.charset.*;
 
 import static com.example.standtrain.util.Globals.handleLTADevice;
 
+/**
+ * Класс сервиса, описывающий объявленные методы создания указателя, инициализации каналов и подготовки к
+ * началу работы для модуля LTA
+ */
 public class InitializationLTA {
+    // Открытие модуля по адресу
     public static int openLTAByIp() {
         PointerByReference handleRef = new PointerByReference();
         handleRef.setValue(Pointer.createConstant(0));
         int status = LTA27_Api.INSTANCE.LTA_Open(
                 handleRef,
                 iniLtaDevRecStruct(),
-                1, //api version
-                1000,                //const for lta timeout
-                0 //in_flags
+                1, // версия апи
+                1000,                // константа для таймаута
+                0 // in_flags
         );
 
         if (status == 0) {
@@ -28,6 +33,7 @@ public class InitializationLTA {
         return status;
     }
 
+    // Метод заполнения JNA представления структуры
     public static LTADevRecStruct iniLtaDevRecStruct(){
         LTADevRecStruct ltaDevRecStruct = new LTADevRecStruct();
 
@@ -47,10 +53,12 @@ public class InitializationLTA {
         return ltaDevRecStruct;
     }
 
+    // Инициализация LTA
     public static int initLTA(){
         return LTA27_Api.INSTANCE.LTA27_Init(handleLTADevice, 0, null);
     }
 
+    // Установка конфигураций каналов
     public static int enableChannels() {
         LTAConfigStruct config = new LTAConfigStruct();
         config.a27_adc_dr = UtilMethods.convertDrToEnum(32);

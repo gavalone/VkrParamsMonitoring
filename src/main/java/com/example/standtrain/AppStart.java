@@ -19,7 +19,7 @@ import static com.example.standtrain.util.Globals.*;
  */
 public class AppStart extends Application {
 
-    // Инициализация сцены и загрузка стилей и ресурсов
+    // И нициализация сцены и загрузка стилей и ресурсов
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStart.class.getResource("Main.fxml"));

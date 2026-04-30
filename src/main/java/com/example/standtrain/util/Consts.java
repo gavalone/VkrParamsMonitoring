@@ -5,7 +5,6 @@ package com.example.standtrain.util;
  */
 public class Consts {
     public static final int X502_LCH_MODE_DIFF = 1;
-    public static final int X502_ADC_RANGE_02 = 5;
     public static final int E16_ADC_RANGE_156 = 3;
     public static final int X502_PROC_FLAGS_VOLT = 0x00000001;
     public static final int E16_MODE_RELAY_ON = 0x40;
@@ -25,7 +24,6 @@ public class Consts {
     public static final int MAX_POINTS = 1000;
     public static final int REFRESH_MS = 100;
     public static final int SKIP_ADC_DATA = 100;
-    //public static final double chartBond = 0.0001;
 
     public static final int chNum = 4;
     public static final float msPerPoint = ((1f / ((float)E16_ADC_FREQ_MINI / (float)SKIP_ADC_DATA) / (float)MAX_POINTS) * 1000f) * chNum;

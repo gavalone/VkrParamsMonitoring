@@ -13,11 +13,15 @@ import static com.example.standtrain.util.Globals.buf4;
 import java.util.*;
 import java.util.concurrent.*;
 
+/**
+ * Класс сервиса, описывающий объявленные методы сбора данных, а также управлениия для модуля Е16
+ */
 public class DataOutputE16 {
+    // разрешение приема и передачи данных для указанны потоков
     public static int streamsEnable(Pointer hnd){
         return X502Api.INSTANCE.X502_StreamsEnable(hnd, Consts.X502_STREAM_ADC);
     }
-
+    // запрещение потока в устройстве
     public static int streamsDisable(Pointer hnd){
         return X502Api.INSTANCE.X502_StreamsDisable(hnd, Consts.X502_STREAM_ADC);
     }
@@ -29,6 +33,7 @@ public class DataOutputE16 {
         return X502Api.INSTANCE.X502_StreamsStop(hnd);
     }
 
+    // начать сбор данных в асинхронном режиме
     public static Thread startSynchroAcquisition(Pointer handle, int lchCount) {
         long recvBytes = (long) Consts.READ_BLOCK_SIZE * Native.getNativeSize(Integer.TYPE);
         final Memory recvBuf = new Memory(recvBytes);
@@ -43,7 +48,7 @@ public class DataOutputE16 {
         final IntByReference firstLchRef = new IntByReference();
         final int[] sampleCounter = new int[lchCount];
 
-        //everything inside lambda launches at t.start()
+        //алгоритм внутри лямбды запускается на момент вызова t.start()
         Thread t = new Thread(() -> {
             try {
                 for (int i = 0; i < lchCount; i++) {
@@ -86,13 +91,13 @@ public class DataOutputE16 {
                     }
                     int firstLch = firstLchRef.getValue();
 
-                    //copy data from memory to java array (easier to work with but resource intensive)
+                    // данные копируются из памяти в массив
                     double[] adc = new double[adcCount];
                     for (int i = 0; i < adcCount; i++) {
                         adc[i] = adcBuf.getDouble((long) i * Native.getNativeSize(Double.TYPE));
                     }
 
-                   //block for division of data per channel from singular array
+                   //разделение данных по каналам из единого массива
                     int capacityPerChannel = (adcCount + lchCount - 1) / lchCount;
                     double[][] channels = new double[lchCount][capacityPerChannel];
                     int[] idx = new int[lchCount];
@@ -101,7 +106,7 @@ public class DataOutputE16 {
                         channels[chZeroBased][idx[chZeroBased]++] = adc[i];
                     }
 
-                     //cut to have actual data per channels (some math division problems cause it)
+                    // обрез для отображения фактических данных по каждому каналу
                     double[][] finalChannels = new double[lchCount][];
                     for (int ch = 0; ch < lchCount; ch++) {
                         finalChannels[ch] = Arrays.copyOf(channels[ch], idx[ch]);
@@ -131,8 +136,8 @@ public class DataOutputE16 {
                 e.printStackTrace();
             }
         });
-        t.setDaemon(true); //background-only thread
-        t.start(); //start the thread
+        t.setDaemon(true); // фоновый поток (гарантированно поток закроется при выходе из программы)
+        t.start(); // запуск потока
         return t;
     }
 }
